@@ -158,7 +158,7 @@ class InvoiceController extends BaseController
                     }
 
                     try {
-                        $soap = new SoapClient('http://10.1.0.4:1008/CenterService/?wsdl');
+                        $soap = new SoapClient($_Env["Server_Wsdl"].'?wsdl');
                         $result = $soap->ChargeMoney([
                             "userID" => (int) udetail_by_uid($_SESSION['uid'])->UserID,
                             "chargeID" => (string) $merchant_order->external_reference,

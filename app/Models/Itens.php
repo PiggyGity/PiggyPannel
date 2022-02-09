@@ -22,7 +22,7 @@ class Itens extends DataLayer
      */
     public function __construct()
     {
-        parent::__construct("Db_Tank.dbo.Shop_Goods", $this->fillable, 'TemplateID', false);
+        parent::__construct("{$_ENV["Game_Data"]}.dbo.Shop_Goods", $this->fillable, 'TemplateID', false);
 
         $this->connection = Connect::getInstance();
         $this->error_connection = Connect::getError();

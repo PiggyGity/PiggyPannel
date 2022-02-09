@@ -131,18 +131,18 @@ class AdminController extends BaseController
         $nick = ((new User)->getSysDetailById($request->UserID))->NickName;
 
         $conn = Connect::getInstance();
-        $conn->prepare("INSERT INTO Db_Tank41.dbo.Sys_Users_Goods( UserID, BagType,TemplateID, Place, Count, IsJudge, Color, IsExist, StrengthenLevel, AttackCompose, DefendCompose, LuckCompose, AgilityCompose, IsBinds, BeginDate, ValidDate) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)")->execute(
+        $conn->prepare("INSERT INTO {$_ENV["Game_User"]}.dbo.Sys_Users_Goods( UserID, BagType,TemplateID, Place, Count, IsJudge, Color, IsExist, StrengthenLevel, AttackCompose, DefendCompose, LuckCompose, AgilityCompose, IsBinds, BeginDate, ValidDate) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)")->execute(
             [1, 0, $request->TemplateID, -1, $request->Count, 1, null, 1, $request->StrengthenLevel, $request->AttackCompose, $request->DefendCompose, $request->AgilityCompose, $request->LuckCompose, $IsBind, "" . date('Y-m-d') . "T" . date('H:i:s') . "Z", $request->ValidDate]
         );
 
         $ItemID = $conn->lastInsertId();
 
-        $conn->prepare("INSERT INTO Db_Tank41.dbo.User_Messages( SenderID, Sender, ReceiverID, Receiver, Title, Content, SendTime, IsRead, IsDelR, IfDelS, IsDelete, Annex1, Annex2, Gold, Money, IsExist,Type,Remark, Annex1Name) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)")->execute(
+        $conn->prepare("INSERT INTO {$_ENV["Game_User"]}.dbo.User_Messages( SenderID, Sender, ReceiverID, Receiver, Title, Content, SendTime, IsRead, IsDelR, IfDelS, IsDelete, Annex1, Annex2, Gold, Money, IsExist,Type,Remark, Annex1Name) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)")->execute(
             [0, 'Sistema', $request->UserID, $nick, $request->Title, $request->Content, "" . date('Y-m-d') . "T" . date('H:i:s') . "Z", 0, 0, 0, 0, $ItemID, 0, 0, 0, 1, 51, "Gold:0,Money:0,Annex1:$ItemID,Annex2:,Annex3:,Annex4:,Annex5:,GiftToken:0", $itemName]
         );
 
         try { 
-            $soap = new SoapClient('http://10.1.0.4:1008/CenterService/?wsdl');
+            $soap = new SoapClient($_ENV["Server_Wsdl"].'?wsdl');
             $result = $soap->MailNotice([
                 "playerID" => $request->UserID,
                 "zoneId" => 1001

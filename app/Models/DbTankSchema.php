@@ -25,7 +25,7 @@ class DbTankSchema extends DataLayer
      */
     public function __construct()
     {
-        parent::__construct("Db_Tank41.INFORMATION_SCHEMA.TABLES", $this->fillable);
+        parent::__construct("{$_ENV["Game_User"]}.INFORMATION_SCHEMA.TABLES", $this->fillable);
 
         $this->connection = Connect::getInstance();
         $this->error_connection = Connect::getError();

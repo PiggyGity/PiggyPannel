@@ -1,5 +1,4 @@
 <?php
-
 return [
 
     'url' => 'http://' . $_SERVER['HTTP_HOST'],
@@ -14,11 +13,11 @@ return [
 
     'domain' => $_SERVER['HTTP_HOST'],
 
-	'resource'=> "http://127.0.0.1:82/Resource",
+	'resource'=> $_ENV['ResourceLink'],
 
-    'flash'  => "http://localhost:82/FlashV4100",
+    'flash'  => $_ENV['FlashLink'],
 
-    'Name' => "OrangeTank",
+    'Name' => $_ENV['ProjectName'],
 
-    'Request'=> "http://127.0.0.1:82/Quests/4100/"
+    'Request'=> $_ENV['RequestLink']
 ];

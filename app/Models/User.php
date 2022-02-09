@@ -32,11 +32,11 @@ class User extends DataLayer
     }
     public function getSysDetail()
     {
-        return $this->connection->query("SELECT * FROM Db_Tank41.dbo.Sys_Users_Detail")->fetchAll();
+        return $this->connection->query("SELECT * FROM {$_ENV["Game_User"]}.dbo.Sys_Users_Detail")->fetchAll();
     }
     public function getSysDetailById($id)
     {
-        return $this->connection->query("SELECT * FROM Db_Tank41.dbo.Sys_Users_Detail WHERE UserID = '$id'")->fetch();
+        return $this->connection->query("SELECT * FROM {$_ENV["Game_User"]}.dbo.Sys_Users_Detail WHERE UserID = '$id'")->fetch();
     }
     public function check(string $type, int|string $value): bool
     {
@@ -53,7 +53,7 @@ class User extends DataLayer
         }
 
         if ($type == 'nick') {
-            if ($this->connection->query("SELECT COUNT(*) FROM Db_Tank41.dbo.Sys_Users_Detail WHERE NickName = '{$value}'")->fetchColumn() >= 1) {
+            if ($this->connection->query("SELECT COUNT(*) FROM {$_ENV["Game_User"]}.dbo.Sys_Users_Detail WHERE NickName = '{$value}'")->fetchColumn() >= 1) {
                 return false;
             }
 
@@ -103,22 +103,21 @@ class User extends DataLayer
             return false;
         }
 
-        if ($this->connection->exec("exec Db_Tank41.dbo.SP_Users_Active @UserID='',@Attack=0,@Colors=N',,,,,,',@ConsortiaID=0,@Defence=0,@Gold=1000,@GP=1437053,@Grade=25,@Luck=0,@Money=500,@Style=N',,,,,,',@Agility=0,@State=0,@UserName=$data->uname,@PassWord=N'$data->passwd',@Sex=$data->sex,@Hide=1111111111,@ActiveIP=N'',@Skin=N'',@Site=N''") !== 1) {
-            //odbc_exec($conn,"exec Db_Tank_102.dbo.SP_Users_Active @UserID='',@Attack=0,@Colors=N',,,,,,',@ConsortiaID=0,@Defence=0,@Gold=$cadastro_gold,@GP=63832646,@Grade=50,@Luck=0,@Money=$cadastro_money,@Style=N',,,,,,',@Agility=0,@State=0,@UserName=$username,@PassWord=N'".strtoupper(md5($senha))."',@Sex=$sexo,@Hide=1111111111,@ActiveIP=N'',@Skin=N'',@Site=N'',@MagicAttack='',@evolutionGrade='',@evolutionExp='',@MagicDefence=''");
+        if ($this->connection->exec("exec {$_ENV["Game_User"]}.dbo.SP_Users_Active @UserID='',@Attack=0,@Colors=N',,,,,,',@ConsortiaID=0,@Defence=0,@Gold=1000,@GP=1437053,@Grade=25,@Luck=0,@Money=500,@Style=N',,,,,,',@Agility=0,@State=0,@UserName=$data->uname,@PassWord=N'$data->passwd',@Sex=$data->sex,@Hide=1111111111,@ActiveIP=N'',@Skin=N'',@Site=N''") !== 1) {
             return false;
         }
 
         if ($data->sex == 1) {
-            if ($this->connection->exec("exec Db_Tank41.dbo.SP_Users_RegisterNotValidate @UserName=N'" . $data->uname . "',@PassWord=N'" . $data->passwd . "',@NickName=N'" . $data->nick . "',@BArmID=7008,@BHairID=3158,@BFaceID=6103,@BClothID=5160,@BHatID=1142,@GArmID=7008,@GHairID=3158,@GFaceID=6103,@GClothID=5160,@GHatID=1142,@ArmColor=N'',@HairColor=N'',@FaceColor=N'',@ClothColor=N'',@HatColor=N'',@Sex=$data->sex,@StyleDate=0") !== 0) {
+            if ($this->connection->exec("exec {$_ENV["Game_User"]}.dbo.SP_Users_RegisterNotValidate @UserName=N'" . $data->uname . "',@PassWord=N'" . $data->passwd . "',@NickName=N'" . $data->nick . "',@BArmID=7008,@BHairID=3158,@BFaceID=6103,@BClothID=5160,@BHatID=1142,@GArmID=7008,@GHairID=3158,@GFaceID=6103,@GClothID=5160,@GHatID=1142,@ArmColor=N'',@HairColor=N'',@FaceColor=N'',@ClothColor=N'',@HatColor=N'',@Sex=$data->sex,@StyleDate=0") !== 0) {
                 return false;
             }
         } else {
-            if ($this->connection->exec("exec Db_Tank41.dbo.SP_Users_RegisterNotValidate @UserName=N'" . $data->uname . "',@PassWord=N'" . $data->passwd . "',@NickName=N'" . $data->nick . "',@BArmID=7008,@BHairID=3244,@BFaceID=6204,@BClothID=5276,@BHatID=1214,@GArmID=7008,@GHairID=3244,@GFaceID=6202,@GClothID=5276,@GHatID=1214,@ArmColor=N'',@HairColor=N'',@FaceColor=N'',@ClothColor=N'',@HatColor=N'',@Sex=$data->sex,@StyleDate=0") !== 0) {
+            if ($this->connection->exec("exec {$_ENV["Game_User"]}.dbo.SP_Users_RegisterNotValidate @UserName=N'" . $data->uname . "',@PassWord=N'" . $data->passwd . "',@NickName=N'" . $data->nick . "',@BArmID=7008,@BHairID=3244,@BFaceID=6204,@BClothID=5276,@BHatID=1214,@GArmID=7008,@GHairID=3244,@GFaceID=6202,@GClothID=5276,@GHatID=1214,@ArmColor=N'',@HairColor=N'',@FaceColor=N'',@ClothColor=N'',@HatColor=N'',@Sex=$data->sex,@StyleDate=0") !== 0) {
                 return false;
             }
         }
 
-        if ($this->connection->exec("exec Db_Tank41.dbo.SP_Users_LoginWeb @UserName=N'" . $data->uname . "',@Password=N'',@FirstValidate=0,@Nickname=N'" . $data->nick . "'") !== 0) {
+        if ($this->connection->exec("exec {$_ENV["Game_User"]}.dbo.SP_Users_LoginWeb @UserName=N'" . $data->uname . "',@Password=N'',@FirstValidate=0,@Nickname=N'" . $data->nick . "'") !== 0) {
             return false;
         }
         return true;
@@ -128,7 +127,7 @@ class User extends DataLayer
     {
         $u_hash = ($this->findById($uid))->u_hash;
 
-        $stmt = $this->connection->prepare('SELECT UserID, UserName,ForbidDate, NickName, Win, Total, FightPower, Style, State, DayLoginCount, OnlineTime, Money, Grade FROM Db_Tank41.dbo.Sys_Users_Detail WHERE UserName=?');
+        $stmt = $this->connection->prepare("SELECT UserID, UserName,ForbidDate, NickName, Win, Total, FightPower, Style, State, DayLoginCount, OnlineTime, Money, Grade FROM {$_ENV["Game_User"]}.dbo.Sys_Users_Detail WHERE UserName=?");
         $stmt->execute([$u_hash]);
 
         return $stmt->fetchObject();
@@ -136,14 +135,14 @@ class User extends DataLayer
 
     public function getRankingList()
     {
-        $stmt = $this->connection->prepare('SELECT TOP 5 UserID, UserName, NickName, Win, Total, FightPower, GP, Grade FROM Db_Tank41.dbo.Sys_Users_Detail ORDER BY FightPower DESC');
+        $stmt = $this->connection->prepare("SELECT TOP 5 UserID, UserName, NickName, Win, Total, FightPower, GP, Grade FROM {$_ENV["Game_User"]}.dbo.Sys_Users_Detail ORDER BY FightPower DESC");
         $stmt->execute();
         return $stmt->fetchAll();
     }
 
     public function CheckValidNickName(string $nick)
     {
-        $stmt = $this->connection->prepare('SELECT COUNT(*) FROM Db_Tank41.dbo.Sys_Users_Detail WHERE NickName=?');
+        $stmt = $this->connection->prepare("SELECT COUNT(*) FROM {$_ENV["Game_User"]}dbo.Sys_Users_Detail WHERE NickName=?");
         $stmt->execute([$nick]);
 
         return $stmt->fetchColumn();
@@ -153,7 +152,7 @@ class User extends DataLayer
     {
         $this->GetUserDetail($uid)->UserID;
 
-        $stmt = $this->connection->prepare("UPDATE Db_Tank41.dbo.Sys_Users_Detail SET NickName = ? WHERE UserID=? ");
+        $stmt = $this->connection->prepare("UPDATE {$_ENV["Game_User"]}.dbo.Sys_Users_Detail SET NickName = ? WHERE UserID=? ");
 
         return $stmt->execute([$nick, $this->GetUserDetail($uid)->UserID]);
     }
@@ -165,13 +164,13 @@ class User extends DataLayer
 
     public function ban_in_game($bandt, $banreason, $uid)
     {
-        $stmt = $this->connection->prepare("SET DATEFORMAT ymd UPDATE Db_Tank_102.dbo.Sys_Users_Detail SET [ForbidDate] = '$bandt', [IsExist] = 'False', [ForbidReason] = N'$banreason' WHERE UserID = N'$uid'");
+        $stmt = $this->connection->prepare("SET DATEFORMAT ymd UPDATE {$_ENV["Game_User"]}.dbo.Sys_Users_Detail SET [ForbidDate] = '$bandt', [IsExist] = 'False', [ForbidReason] = N'$banreason' WHERE UserID = N'$uid'");
         return $stmt->execute();
     }
 
     public function unban_in_game($uid)
     {
-        $stmt = $this->connection->prepare("SET DATEFORMAT ymd UPDATE Db_Tank_102.dbo.Sys_Users_Detail SET [ForbidDate] = '" . date("Y/m/d H:i:s") . "', [IsExist] = 'True', [ForbidReason] = N'' WHERE UserID = N'$uid'");
+        $stmt = $this->connection->prepare("SET DATEFORMAT ymd UPDATE {$_ENV["Game_User"]}.dbo.Sys_Users_Detail SET [ForbidDate] = '" . date("Y/m/d H:i:s") . "', [IsExist] = 'True', [ForbidReason] = N'' WHERE UserID = N'$uid'");
         return $stmt->execute();
     }
 }

@@ -5,7 +5,12 @@ ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 use Libraries\Router\Router;
 
+
 require realpath(dirname(__DIR__, 1) . "/vendor/autoload.php");
+
+$dotenv = Dotenv\Dotenv::createImmutable(dirname(__DIR__, 1));
+$dotenv->load();
+
 
 session_start();
 

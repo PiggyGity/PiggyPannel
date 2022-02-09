@@ -1,0 +1,22 @@
+{
+    "name": "ybiel778x/pagina-campeira",
+    "require": {
+        "league/plates": "^3.4",
+        "mercadopago/dx-php": "^2.3"
+    },
+    "authors": [
+        {
+            "name": "Gabriel Amorim",
+            "email": "redetank17@gmail.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "App\\": "app/",
+            "Libraries\\": "resources/libraries/"
+        },
+        "files": [
+            "resources/common.php"
+        ]
+    }
+}

@@ -43,6 +43,7 @@ class RequestController extends BaseController
 
     public function signin_client(): void
     {
+      
         if (empty($this->request->mail) || empty($this->request->passwd)) {
             echo $this->response("response", [
                 "state" => false,
@@ -111,23 +112,41 @@ class RequestController extends BaseController
                 "passwd" => null,
                 "first_name" => "Desconhecido",
                 "last_name" => "Desconhecido",
+                'loading'=>"",
+                "config" => base_url() . '/config',
                 "profile_src" => getImage('profile', "default.jpg")
             ]);
             return;
         }
 
-        include_once  dirname(__DIR__, 2) . "/resources/libraries/Crypt/RSA.php";
-        $rsa = new Crypt_RSA(); 
-        $rsa->loadKey('<RSAKeyValue><Modulus>qiydW7oa9F2nUwKbJyuuEj3vmnbMuzhDqor4Zc8GE0h48V+GyaiW+hjQRzG95TXcvpN6LIp7kIM/mDbTHyjYUWzBD1Ovy51D+N2B0lBlYyAItX51bcf8cmggrIGKVvBgwqD4APMHkiZoYcTizYJepBPVSzjGnKJXCr0LLdojWGk=</Modulus><Exponent>AQAB</Exponent></RSAKeyValue>');
-        $rsa->setEncryptionMode(CRYPT_RSA_ENCRYPTION_PKCS1);
-        
-        $k = urlencode(base64_encode($rsa->encrypt($udata->p_hash . ';' . (time() + 8000))));
-      
+        $k = md5($udata->p_hash);
+
+        $ch = curl_init(config('app.Request') . 'CreateLoginMec.aspx?content=' . urlencode($udata->u_hash . '|' . $k));
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+        $resposta = curl_exec($ch);
+        curl_close($ch);
+        if ($resposta == "0" || $resposta == '-1900') {
+            echo $this->response('response', [
+                "uname" => null,
+                "passwd" => null,
+                "first_name" => "Desconhecido",
+                "last_name" => "Desconhecido",
+                "loading" => 'haha',
+                "config"=>base_url().'/config',
+                "profile_src" => getImage('profile', "default.jpg")
+            ]);
+            return;
+        }
+
+        $k = $resposta;
+
         echo $this->response("response", [
             "uname" => $ug->UserName,
             "hash_key" => $k,
             "first_name" => $udata->first_name,
             "last_name" => $udata->last_name,
+            "loading"=>config('app.flash'). '/Loading.swf',
+            "config" => base_url() . '/config',
             "profile_src" => getImage('profile', $udata->photo)
         ]);
     }
@@ -316,13 +335,13 @@ class RequestController extends BaseController
                 codebase="http://fpdownload.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=8,0,0,0"
                 name="Main" id="Main">
                 <param name="allowScriptAccess" value="always" />
-                <param name="movie" value="https://cdn.ddtankalpha.com.br/flash/Loading.swf?user=' . $udata->u_hash . '&key=' . $k . '&config=' . base_url('/') . 'config.xml" />
+                <param name="movie" value="'.config('app.flash').'/Loading.swf?user=' . $udata->u_hash . '&key=' . $k . '&config=' . base_url('/') . 'config.xml" />
                 <param name="quality" value="high" />
                 <param name="menu" value="false">
                 <param name="bgcolor" value="#000000" />
                 <param name="FlashVars" value="editby=" />
                 <param name="allowScriptAccess" value="always" />
-                <embed flashvars="editby=" src="https://cdn.ddtankalpha.com.br/flash/Loading.swf?user=' . $udata->u_hash . '&key=' . $k . '&config=' . base_url('/') . 'config.xml"
+                <embed flashvars="editby=" src="' . config('app.flash') . '/Loading.swf?user=' . $udata->u_hash . '&key=' . $k . '&config=' . base_url('/') . 'config.xml"
                     width="1000" height="600" align="middle" quality="high" name="Main" allowscriptaccess="always"
                     type="application/x-shockwave-flash" pluginspage="http://www.macromedia.com/go/getflashplayer" wmode="direct"/>
             </object>';
@@ -437,5 +456,10 @@ class RequestController extends BaseController
             $this->router->redirect('web.lobby');
             return;
         }
+    }
+
+    public function config()
+    {
+        echo $this->view->render('config');
     }
 }

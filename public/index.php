@@ -33,7 +33,7 @@ $router->get('/teste', 'PagesController:teste', 'web.teste');
 $router->get('/recarga', 'PagesController:recharge', 'web.recharge');
 $router->get('/jogar', 'PagesController:playgame', 'web.playgame');
 $router->get('/sair', 'PagesController:logout', 'web.logout');
-$router->get('/config', 'PagesController:config', 'web.config');
+$router->get('/config', 'RequestController:config', 'web.config');
 // $router->get('/test', 'PagesController:TesteDelete', 'web.TesteDelete');
 
 $router->get('/minha-conta/configuracoes', 'PagesController:account_settings', 'web.account.settings');

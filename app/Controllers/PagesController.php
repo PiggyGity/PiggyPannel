@@ -174,10 +174,7 @@ class PagesController extends BaseController
         }
     }
 
-    public function config()
-    {
-        echo $this->view->render('config');
-    }
+    
 
     public function TesteDelete()
     {

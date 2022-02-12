@@ -8,39 +8,6 @@ use Crypt_RSA;
 
 class RequestController extends BaseController
 {
-    function getChatData(?array $request)
-    {
-        $request = filter_var_array($request, FILTER_SANITIZE_STRIPPED);
-        $request = (object) $request;
-
-        if (!isset($request->uid) || empty($request->uid)) {
-            return 'invalid paramters';
-        }
-
-        if ($request->uid != $_SESSION['uid']) {
-            return 'invalid assignature key';
-        }
-
- 
-        $s = (new Support())->find("sendID = :sid OR receiveID = :rid", "sid=" . $_SESSION['uid'] . "&rid=" . $_SESSION['uid'] . "")->order("id DESC")->fetch(true);
-
-        $data = [];
-
-        foreach ($s as $row) {
-            $data[] = [
-                "id" => $row->id,
-                "send" => $row->sendID,
-                "receive" => $row->receiveID,
-                "content" => $row->content,
-                "created_at" => $row->created_at,
-                "updated_at" => $row->updated_at,
-            ];
-        }
-
-        echo json_encode($data);
-        return;
-    }
-
     public function signin_client(): void
     {
       
@@ -119,13 +86,13 @@ class RequestController extends BaseController
             return;
         }
 
-        $k = md5($udata->p_hash);
+        $hash = md5($udata->p_hash);
 
-        $ch = curl_init(config('app.Request') . 'CreateLoginMec.aspx?content=' . urlencode($udata->u_hash . '|' . $k));
+        $ch = curl_init(config('app.Request') . 'CreateLoginMec.aspx?content=' . urlencode($udata->u_hash . '|' . $hash));
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-        $resposta = curl_exec($ch);
+        $result = curl_exec($ch);
         curl_close($ch);
-        if ($resposta == "0" || $resposta == '-1900') {
+        if ($result == "0" || $result == '-1900') {
             echo $this->response('response', [
                 "uname" => null,
                 "passwd" => null,
@@ -138,11 +105,9 @@ class RequestController extends BaseController
             return;
         }
 
-        $k = $resposta;
-
         echo $this->response("response", [
             "uname" => $ug->UserName,
-            "hash_key" => $k,
+            "hash_key" => $result,
             "first_name" => $udata->first_name,
             "last_name" => $udata->last_name,
             "loading"=>config('app.flash'). '/Loading.swf',
@@ -151,36 +116,9 @@ class RequestController extends BaseController
         ]);
     }
 
-    public function sendChatUser(?array $request)
-    {
-        $request = filter_var_array($request, FILTER_SANITIZE_STRIPPED);
-
-        $request = (object) $request;
-
-        if (!isset($_SESSION['uid']) || empty($_SESSION['uid'])) {
-            return 'invalid assignature key';
-        }
-
-        $s = new Support;
-
-        $s->sendID = $_SESSION['uid'];
-        $s->receiveID = 0;
-        $s->content = $request->content;
-
-        $s->save();
-
-        echo $this->response('response', [
-            'state' => true,
-            'msg' => 'menssagem enviada com sucesso',
-            'content' => $request->content,
-            'time' => date('Y-m-d H:i:s')
-        ]);
-        return;
-    }
-
     public function signin(?array $request)
     {
-        $request = filter_var_array($request, FILTER_SANITIZE_STRIPPED);
+        $request = filter_var_array($request, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
 
         if (in_array("", $request)) {
             echo $this->response('response', [
@@ -227,7 +165,7 @@ class RequestController extends BaseController
         }
 
         $_SESSION['uid'] = $udata->id;
-
+        $_SESSION['visited_today'] = true;
         echo $this->response('response', [
             'state' => true,
             'msg' => 'Login efetuado com sucesso, aguarde estamos te redirecionando.',
@@ -238,7 +176,7 @@ class RequestController extends BaseController
 
     public function signup(?array $request): void
     {
-        $request = filter_var_array($request, FILTER_SANITIZE_STRIPPED);
+        $request = filter_var_array($request, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
 
         if (in_array("", $request)) {
             echo $this->response('response', [
@@ -352,7 +290,7 @@ class RequestController extends BaseController
 
     public function simple_signin(?array $request)
     {
-        $request = filter_var_array($request, FILTER_SANITIZE_STRIPPED);
+        $request = filter_var_array($request, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
 
         if (in_array("", $request)) {
             $_SESSION['flash'] = "Você precisa preencher todos os campos.";
@@ -397,7 +335,7 @@ class RequestController extends BaseController
 
     public function simple_signup(?array $request): void
     {
-        $request = filter_var_array($request, FILTER_SANITIZE_STRIPPED);
+        $request = filter_var_array($request, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
 
         if (in_array("", $request)) {
             $_SESSION['flash'] = "Você precisa preencher todos os campos.";

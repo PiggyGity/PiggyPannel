@@ -4,9 +4,9 @@
 <!--begin::Head-->
 
 <head>
-	<title>ddtankAlpha - versão 10.9</title>
-	<meta name="description" content="The most advanced Bootstrap Admin Theme on Themeforest trusted by 94,000 beginners and professionals. Multi-demo, Dark Mode, RTL support and complete React, Angular, Vue &amp; Laravel versions. Grab your copy now and get life-time updates for free." />
-	<meta name="keywords" content="Metronic, bootstrap, bootstrap 5, Angular, VueJs, React, Laravel, admin themes, web design, figma, web development, free templates, free admin themes, bootstrap theme, bootstrap template, bootstrap dashboard, bootstrap dak mode, bootstrap button, bootstrap datepicker, bootstrap timepicker, fullcalendar, datatables, flaticon" />
+	<title><?= $_ENV['ProjectName'] ?> - versão 4.1</title>
+	<meta name="description" content="O DDTank está de volta em sua versão antiga, fortaleça sua arma, relaxe no Spa, seja mestre no laboratório. Jogue grátis agora mesmo o melhor <b>DDTank</b> antigo!" />
+	<meta name="keywords" content="ddtank, ddtank 337, ddtank nova era, ddtank portugues, ddtank orange, ddtank antigo, ddtank337, 337 ddtank, 337ddtank" />
 	<meta name="viewport" content="width=device-width, initial-scale=1" />
 	<meta charset="utf-8" />
 	<link rel="shortcut icon" href="https://pbs.twimg.com/profile_images/1391875988364091400/kQCNQnOV.jpg" />

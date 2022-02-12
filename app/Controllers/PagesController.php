@@ -59,14 +59,13 @@ class PagesController extends BaseController
             "suit" => (explode("|", $cequip[7]))[0],
         ];
 
-        $visit = (new Visit)->find()->fetch(true);
-        $visits = 0;
+        $visits = 1;
 
-        foreach ($visit as $row) {
-            $visits += $row->data->count;
+        //get total visits
+        $visitPath = __DIR__ . '/../../storage/cache/total-visits.cache';
+        if(file_exists($visitPath)){
+            $visits = file_get_contents($visitPath);
         }
-
-        $visits = $visits;
 
         $user = new User();
         $count_users = count($user->find()->fetch(true));
@@ -99,7 +98,7 @@ class PagesController extends BaseController
 
         echo $this->view->render('lobby', [
             "users_count" => $count_users,
-            "visit_count" => $visits,
+            "visit_count" => !empty($visits) ? $visits : 1,
             "uequip" => $eqp,
             "js_months" => json_encode($months),
             "js_count" => json_encode($users),
@@ -126,7 +125,6 @@ class PagesController extends BaseController
         $resposta = curl_exec($ch);
         curl_close($ch);
 
-        //  || strlen($resposta) <  36 || strlen($resposta) > 36
         if ($resposta == "0" || $resposta == '-1900') {
             $this->router->redirect('web.landing');
             return;
@@ -173,8 +171,6 @@ class PagesController extends BaseController
             }
         }
     }
-
-    
 
     public function TesteDelete()
     {

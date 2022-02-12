@@ -6,14 +6,13 @@ use App\Models\Invoice as InvoiceModel;
 use App\Models\Product;
 use App\Models\User;
 use MercadoPago;
-use MercadoPago\Invoice;
 use SoapClient;
 
 class InvoiceController extends BaseController
 {
     public function create(?array $data): void
     {
-        $pid = filter_var($data['pid'], FILTER_SANITIZE_STRIPPED);
+        $pid = filter_var($data['pid'], FILTER_SANITIZE_FULL_SPECIAL_CHARS);
         $uid = $_SESSION['uid'];
         if (empty($pid) || !isset($pid)) {
             echo 'product_id not definied.';
@@ -56,7 +55,7 @@ class InvoiceController extends BaseController
 
     public function detail(?array $data): void
     {
-        $id = filter_var($data['id'], FILTER_SANITIZE_STRIPPED);
+        $id = filter_var($data['id'], FILTER_SANITIZE_FULL_SPECIAL_CHARS);
 
         if (empty($id) || !isset($id)) {
             echo 'inovice_id not definied.';
@@ -158,7 +157,7 @@ class InvoiceController extends BaseController
                     }
 
                     try {
-                        $soap = new SoapClient($_Env["Server_Wsdl"].'?wsdl');
+                        $soap = new SoapClient($_ENV["Server_Wsdl"].'?wsdl');
                         $result = $soap->ChargeMoney([
                             "userID" => (int) udetail_by_uid($_SESSION['uid'])->UserID,
                             "chargeID" => (string) $merchant_order->external_reference,

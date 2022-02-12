@@ -7,16 +7,16 @@
 <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
 
 <head>
-	<title>ddtankAlpha - versão 10.9</title>
-	<meta name="description" content="The most advanced Bootstrap Admin Theme on Themeforest trusted by 94,000 beginners and professionals. Multi-demo, Dark Mode, RTL support and complete React, Angular, Vue &amp; Laravel versions. Grab your copy now and get life-time updates for free." />
-	<meta name="keywords" content="Metronic, bootstrap, bootstrap 5, Angular, VueJs, React, Laravel, admin themes, web design, figma, web development, free templates, free admin themes, bootstrap theme, bootstrap template, bootstrap dashboard, bootstrap dak mode, bootstrap button, bootstrap datepicker, bootstrap timepicker, fullcalendar, datatables, flaticon" />
+	<title><?= $_ENV['ProjectName'] ?> - versão 4.1</title>
+	<meta name="description" content="O DDTank está de volta em sua versão antiga, fortaleça sua arma, relaxe no Spa, seja mestre no laboratório. Jogue grátis agora mesmo o melhor <b>DDTank</b> antigo!" />
+	<meta name="keywords" content="ddtank, ddtank 337, ddtank nova era, ddtank portugues, ddtank orange, ddtank antigo, ddtank337, 337 ddtank, 337ddtank" />
 	<meta name="viewport" content="width=device-width, initial-scale=1" />
 	<meta charset="utf-8" />
 	<meta property="og:locale" content="pt_BR" />
 	<meta property="og:type" content="article" />
 	<meta property="og:title" content="" />
-	<meta property="og:url" content="https://keenthemes.com/metronic" />
-	<meta property="og:site_name" content="ddtankAlpha | Lobby" />
+	<meta property="og:url" content="<?= base_url(); ?>" />
+	<meta property="og:site_name" content="<?= $_ENV['ProjectName'] ?> | Lobby" />
 	<link rel="canonical" href="https://preview.keenthemes.com/metronic8" />
 	<link rel="shortcut icon" href="https://pbs.twimg.com/profile_images/1391875988364091400/kQCNQnOV.jpg" />
 
@@ -726,142 +726,6 @@
 		</div>
 	</div>
 
-
-	<div id="kt_drawer_chat" class="bg-body" data-kt-drawer="true" data-kt-drawer-name="chat" data-kt-drawer-activate="true" data-kt-drawer-overlay="true" data-kt-drawer-width="{default:'300px', 'md': '500px'}" data-kt-drawer-direction="end" data-kt-drawer-toggle="#kt_drawer_chat_toggle" data-kt-drawer-close="#kt_drawer_chat_close">
-
-		<div class="card w-100 rounded-0" id="kt_drawer_chat_messenger">
-
-			<div class="card-header pe-5" id="kt_drawer_chat_messenger_header">
-
-				<div class="card-title">
-
-					<div class="d-flex justify-content-center flex-column me-3">
-						<a href="#" class="fs-4 fw-bolder text-gray-900 text-hover-primary me-1 mb-2 lh-1">Suporte</a>
-
-						<div class="mb-0 lh-1">
-							<span class="badge badge-success badge-circle w-10px h-10px me-1"></span>
-							<span class="fs-7 fw-bold text-muted">Online</span>
-						</div>
-
-					</div>
-
-				</div>
-
-
-				<div class="card-toolbar">
-
-					<div class="me-2">
-						<button class="btn btn-sm btn-icon btn-active-light-primary" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end" data-kt-menu-flip="top-end">
-							<i class="bi bi-three-dots fs-3"></i>
-						</button>
-
-						<div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-800 menu-state-bg-light-primary fw-bold w-200px py-3" data-kt-menu="true">
-
-							<div class="menu-item px-3">
-								<div class="menu-content text-muted pb-2 px-3 fs-7 text-uppercase">Contacts</div>
-							</div>
-
-
-							<div class="menu-item px-3">
-								<a href="#" class="menu-link px-3" data-bs-toggle="modal" data-bs-target="#kt_modal_users_search">Add Contact</a>
-							</div>
-
-
-							<div class="menu-item px-3">
-								<a href="#" class="menu-link flex-stack px-3" data-bs-toggle="modal" data-bs-target="#kt_modal_invite_friends">Invite Contacts
-									<i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="Specify a contact email to send an invitation"></i></a>
-							</div>
-
-
-							<div class="menu-item px-3" data-kt-menu-trigger="hover" data-kt-menu-placement="right-start" data-kt-menu-flip="left, center, top">
-								<a href="#" class="menu-link px-3">
-									<span class="menu-title">Groups</span>
-									<span class="menu-arrow"></span>
-								</a>
-
-								<div class="menu-sub menu-sub-dropdown w-175px py-4">
-
-									<div class="menu-item px-3">
-										<a href="#" class="menu-link px-3" data-bs-toggle="tooltip" title="Coming soon">Create Group</a>
-									</div>
-
-
-									<div class="menu-item px-3">
-										<a href="#" class="menu-link px-3" data-bs-toggle="tooltip" title="Coming soon">Invite Members</a>
-									</div>
-
-
-									<div class="menu-item px-3">
-										<a href="#" class="menu-link px-3" data-bs-toggle="tooltip" title="Coming soon">Settings</a>
-									</div>
-
-								</div>
-
-							</div>
-
-
-							<div class="menu-item px-3 my-1">
-								<a href="#" class="menu-link px-3" data-bs-toggle="tooltip" title="Coming soon">Settings</a>
-							</div>
-
-						</div>
-
-					</div>
-
-
-					<div class="btn btn-sm btn-icon btn-active-light-primary" id="kt_drawer_chat_close">
-
-						<span class="svg-icon svg-icon-2">
-							<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
-								<g transform="translate(12.000000, 12.000000) rotate(-45.000000) translate(-12.000000, -12.000000) translate(4.000000, 4.000000)" fill="#000000">
-									<rect fill="#000000" x="0" y="7" width="16" height="2" rx="1" />
-									<rect fill="#000000" opacity="0.5" transform="translate(8.000000, 8.000000) rotate(-270.000000) translate(-8.000000, -8.000000)" x="0" y="7" width="16" height="2" rx="1" />
-								</g>
-							</svg>
-						</span>
-
-					</div>
-
-				</div>
-
-			</div>
-
-
-			<div class="card-body" id="kt_drawer_chat_messenger_body">
-
-				<div class="scroll-y me-n5 pe-5" id="chat_message_area" data-kt-element="messages" data-kt-scroll="true" data-kt-scroll-activate="true" data-kt-scroll-height="auto" data-kt-scroll-dependencies="#kt_drawer_chat_messenger_header, #kt_drawer_chat_messenger_footer" data-kt-scroll-wrappers="#kt_drawer_chat_messenger_body" data-kt-scroll-offset="0px"></div>
-
-			</div>
-
-
-			<div class="card-footer pt-4" id="kt_drawer_chat_messenger_footer">
-				<form action="<?= base_url('api/chat/send') ?>" id="send_chat_msg" method="post">
-					<textarea class="form-control form-control-flush mb-3" rows="1" data-kt-element="input" name="content" placeholder="Escreva a menssagem"></textarea>
-
-
-					<div class="d-flex flex-stack">
-
-						<div class="d-flex align-items-center me-2">
-							<button class="btn btn-sm btn-icon btn-active-light-primary me-1" type="button" data-bs-toggle="tooltip" title="Em breve">
-								<i class="bi bi-paperclip fs-3"></i>
-							</button>
-							<button class="btn btn-sm btn-icon btn-active-light-primary me-1" type="button" data-bs-toggle="tooltip" title="Em breve">
-								<i class="bi bi-upload fs-3"></i>
-							</button>
-						</div>
-
-						<button type="submit" class="btn btn-primary" button-send-chat="submit">
-							<span class="indicator-label">Enviar</span>
-							<span class="indicator-progress"><span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
-						</button>
-					</div>
-				</form>
-			</div>
-		</div>
-	</div>
-
-
-
 	<div id="kt_scrolltop" class="scrolltop" data-kt-scrolltop="true">
 		<span class="svg-icon">
 			<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
@@ -880,121 +744,6 @@
 	<script>let BASE_HOST = "<?= base_url() ?>";</script>
 
 	<?= $this->section('js_asset'); ?>
- 
-	<script>
-		function loadChatData() {
-
-			let data;
-
-			$.ajax({
-				url: `${BASE_HOST}/api/chat/data`,
-				data: {
-					uid: <?= $_SESSION['uid'] ?>
-				},
-				method: "post",
-				dataType: "json",
-				success: (item) => {
-					$('#chat_message_area').empty();
-					$(item).each((i) => {
-						// ${item[i].tmdbid}
-						if (item[i].send == 0) {
-							data = `
-                            <div class="d-flex justify-content-start mb-10">
-                                <div class="d-flex flex-column align-items-start">
-                                    <div class="d-flex align-items-center mb-2">
-                                        <div class="symbol symbol-35px symbol-circle">
-                                            <img alt="Pic" src="${BASE_HOST}/assets/media/avatars/150-15.jpg" />
-                                        </div>
-                                        <div class="ms-3">
-                                            <a href="#" class="fs-5 fw-bolder text-gray-900 text-hover-primary me-1">Suporte</a>
-                                            <span class="text-muted fs-7 mb-1">${time_ago(new Date(item[i].created_at))}</span>
-                                        </div>
-                                    </div>
-                                    <div class="p-5 rounded bg-light-info text-dark fw-bold mw-lg-400px text-start" data-kt-element="message-text">
-                                    ${item[i].content}
-                                    </div>
-
-                                </div>
-
-                                </div>
-
-                                `;
-						}
-
-						if (item[i].send != 0) {
-							data = `                       
-                                <div class="d-flex justify-content-end mb-10">
-                                    <div class="d-flex flex-column align-items-end">
-                                        <div class="d-flex align-items-center mb-2">
-                                            <div class="me-3">
-                                                <span class="text-muted fs-7 mb-1">${time_ago(new Date(item[i].created_at))}</span>
-                                                <a href="#" class="fs-5 fw-bolder text-gray-900 text-hover-primary ms-1">eu</a>
-                                            </div>
-                                            <div class="symbol symbol-35px symbol-circle">
-                                                <img alt="Pic" src="https://pbs.twimg.com/profile_images/1391875988364091400/kQCNQnOV.jpg" />
-                                            </div>
-                                        </div>
-                                        <div class="p-5 rounded bg-light-primary text-dark fw-bold mw-lg-400px text-end" data-kt-element="message-text">
-                                        ${item[i].content}
-                                        </div>
-
-                                    </div>
-
-                                </div>
-                            `;
-						}
-						$('#chat_message_area').append(data);
-					});
-				},
-			});
-		}
-
-		setInterval(function() {
-			loadChatData();
-		}, 8000);
-	</script>
-
-	<script>
-		$("form#send_chat_msg").submit(function(e) {
-			let btn = $('[button-send-chat="submit"]');
-			e.preventDefault();
-
-			var form = $(this);
-			var action = form.attr("action");
-			var data = form.serialize();
-
-			$.ajax({
-				url: action,
-				data: data,
-				type: "post",
-				dataType: "json",
-				beforeSend: function(load) {
-					btn.attr("data-kt-indicator", "on").attr("disabled", "disabled")
-				},
-				error: function(load) {
-					Swal.fire({
-						text: 'Ocorreu um erro ao processar a requisição',
-						icon: "error",
-						buttonsStyling: !1,
-						confirmButtonText: "Ok, confirmar!",
-						customClass: {
-							confirmButton: "btn btn-primary"
-						}
-					}).then((function(t) {
-						btn.removeAttr("data-kt-indicator").removeAttr("disabled")
-					}))
-				},
-				success: function(su) {
-					if (su.response.state) {
-						loadChatData();
-						form.trigger("reset");
-					}
-					btn.removeAttr("data-kt-indicator").removeAttr("disabled")
-				}
-
-			});
-		});
-	</script>
 
 	<script>
 		function checkState(){

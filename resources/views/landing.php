@@ -3,16 +3,16 @@
 <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
 
 <head>
-   <title>ddtankAlpha - versão 10.9</title>
-   <meta name="description" content="O melhor servidor pirata versão 10.9" />
-   <meta name="keywords" content="DDTank, ddtankAlpha, DDTank pirata, DDtank versão 6, ddtank pirata v6.7" />
+   <title><?= $_ENV['ProjectName'] ?> - versão 4.1</title>
+   <meta name="description" content="O melhor servidor versão 4.1" />
+   <meta name="keywords" content="DDTank, <?= $_ENV['ProjectName'] ?>, DDTank pirata, DDtank versão 6, ddtank pirata v6.7" />
    <meta name="viewport" content="width=device-width, initial-scale=1" />
    <meta charset="utf-8" />
    <meta property="og:locale" content="pt_BR" />
    <meta property="og:type" content="article" />
-   <meta property="og:title" content="ddtankAlpha - versão 10.9" />
+   <meta property="og:title" content="<?= $_ENV['ProjectName'] ?> - versão 4.1" />
    <meta property="og:url" content="<?= base_url() ?>" />
-   <meta property="og:site_name" content="ddtankAlpha -Versão 10.9" />
+   <meta property="og:site_name" content="<?= $_ENV['ProjectName'] ?> - versão 4.1" />
    <link rel="canonical" href="https://preview.keenthemes.com/metronic8" />
    <link rel="shortcut icon" href="https://pbs.twimg.com/profile_images/1391875988364091400/kQCNQnOV.jpg" />
    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700" />

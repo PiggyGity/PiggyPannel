@@ -161,7 +161,7 @@
                                         <div class="fw-bold fs-7 text-gray-600 mb-1">Gerado por:</div>
                                         <!--end::Label-->
                                         <!--end::Text-->
-                                        <div class="fw-bolder fs-6 text-gray-800">ddtankAlpha.</div>
+                                        <div class="fw-bolder fs-6 text-gray-800"><?= $_ENV['ProjectName'] ?>.</div>
                                         <!--end::Text-->
                                         <!--end::Description-->
                                         <div class="fw-bold fs-7 text-gray-600">via <span class="text-gray-800">MercadoPago</span></div>
@@ -283,7 +283,7 @@
                             <!--begin::Item-->
                             <div class="mb-6">
                                 <div class="fw-bold text-gray-600 fs-7">Servidor:</div>
-                                <div class="fw-bolder text-gray-800 fs-6">S1 - ddtankAlpha</div>
+                                <div class="fw-bolder text-gray-800 fs-6">S1 - <?= $_ENV['ProjectName'] ?></div>
                             </div>
                             <!--end::Item-->
                             <!--begin::Item

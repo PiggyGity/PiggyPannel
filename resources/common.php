@@ -69,7 +69,7 @@ function checkPaymentByMp($reference, string $token = null)
                 }
 
                 try {
-                    $soap = new SoapClient($_Env["Server_Wsdl"].'?wsdl');
+                    $soap = new SoapClient($_ENV["Server_Wsdl"].'?wsdl');
                     $result = $soap->ChargeMoney([
                         "userID" => intval(udetail_by_uid($fatura->uid)->UserID),
                         "chargeID" => (string) $reference,

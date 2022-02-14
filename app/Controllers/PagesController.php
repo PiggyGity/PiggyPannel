@@ -4,11 +4,8 @@ namespace App\Controllers;
 
 use App\Models\DbTankSchema;
 use App\Models\Invoice;
-use App\Models\Itens;
 use App\Models\Product;
 use App\Models\User;
-use App\Models\Visit;
-use Crypt_RSA;
 
 class PagesController extends BaseController
 {
@@ -19,14 +16,14 @@ class PagesController extends BaseController
             $this->router->redirect('web.landing');
             return true;
         }
-        
+
         checkPayments($_SESSION['uid']);
     }
 
     public function purchases_history()
     {
         echo $this->view->render('account/purchases_history', [
-            "invoice_list" => (new Invoice)->find("uid = :id", "id={$_SESSION['uid']}")->fetch(true)
+            "invoice_list" => (new Invoice())->find("uid = :id", "id={$_SESSION['uid']}")->fetch(true)
         ]);
         return;
     }
@@ -63,7 +60,7 @@ class PagesController extends BaseController
 
         //get total visits
         $visitPath = __DIR__ . '/../../storage/cache/total-visits.cache';
-        if(file_exists($visitPath)){
+        if (file_exists($visitPath)) {
             $visits = file_get_contents($visitPath);
         }
 
@@ -75,7 +72,9 @@ class PagesController extends BaseController
 
         $mesprapular = $currentMonth - 06;
 
-        if ($currentMonth < 0) $mesprapular = 0;
+        if ($currentMonth < 0) {
+            $mesprapular = 0;
+        }
 
         for ($i = 1; $i < 13; $i++) {
             if ($i <= $mesprapular) {
@@ -102,9 +101,24 @@ class PagesController extends BaseController
             "uequip" => $eqp,
             "js_months" => json_encode($months),
             "js_count" => json_encode($users),
-            "ranking" => (new User)->getRankingList()
+            "ranking" => (new User())->getRankingList()
         ]);
         return;
+    }
+
+    protected function getHashUser($user, $key)
+    {
+        $ch = curl_init(config('app.Request') . 'CreateLoginMec.aspx?content=' . urlencode($user . '|' . $key));
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+        $result = curl_exec($ch);
+        curl_close($ch);
+
+        if ($result == "0" || $result == '-1900') {
+            $this->router->redirect('web.landing');
+            return;
+        }
+
+        return $result;
     }
 
     public function playgame(): void
@@ -113,31 +127,31 @@ class PagesController extends BaseController
             $this->router->redirect('web.landing');
         }
 
-        if (!$udata = (new User)->findById($_SESSION['uid'])) {
+        if ($_ENV['maintenance']) {
+            $this->router->redirect('web.maintenance');
+            return;
+        }
+
+        if (!$udata = (new User())->findById($_SESSION['uid'])) {
             die('usuario nao encontrado');
         }
 
         $user = $udata->u_hash;
         $key = md5($udata->p_hash);
 
-        $ch = curl_init(config('app.Request') . 'CreateLoginMec.aspx?content=' . urlencode($user . '|' . $key));
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-        $resposta = curl_exec($ch);
-        curl_close($ch);
+        $hash =  $this->getHashUser($user, $key);
 
-        if ($resposta == "0" || $resposta == '-1900') {
-            $this->router->redirect('web.landing');
-            return;
-        }
-
-        $key = $resposta;
-        
-        
         echo $this->view->render('playgame', [
             "uname" => $user,
-            "hash" => $key,
+            "hash" => $hash,
         ]);
 
+        return;
+    }
+
+    public function maintenance(): void
+    {
+        echo $this->view->render('maintenance');
         return;
     }
 
@@ -149,13 +163,13 @@ class PagesController extends BaseController
     public function recharge()
     {
         echo $this->view->render('recharge', [
-            "products" => (new Product)->find()->fetch(true)
+            "products" => (new Product())->find()->fetch(true)
         ]);
     }
 
     public function teste()
     {
-        $product = new Product;
+        $product = new Product();
         $product->SendRewardRecharge($_SESSION['uid'], 7);
     }
 
@@ -176,9 +190,8 @@ class PagesController extends BaseController
     {
         $schema = new DbTankSchema();
 
-        foreach($schema->find()->fetch(true) as $db)
-        {
-            echo "Truncate Table $db->TABLE_NAME". PHP_EOL;
+        foreach ($schema->find()->fetch(true) as $db) {
+            echo "Truncate Table $db->TABLE_NAME" . PHP_EOL;
         }
 
         return;

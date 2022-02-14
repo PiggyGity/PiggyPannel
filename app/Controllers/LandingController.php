@@ -9,14 +9,14 @@ class LandingController extends BaseController
         echo $this->view->render('landing');
         return;
     }
-	
-	public function simple_auth(): void
+
+    public function simple_auth(): void
     {
         if (isset($_SESSION['uid']) && !empty($_SESSION['uid'])) {
             $this->router->redirect('web.lobby');
             return;
         }
-        
+
         echo $this->view->render('simple_auth');
         return;
     }

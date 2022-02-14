@@ -3,7 +3,6 @@
 namespace App\Controllers;
 
 use App\Models\User;
-use App\Models\Visit;
 use League\Plates\Engine;
 
 class BaseController
@@ -19,33 +18,30 @@ class BaseController
     public function __construct($router)
     {
         $request = filter_var_array($_REQUEST, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-        
+
         $this->request = (object) $request;
-		$this->router = $router;
+        $this->router = $router;
         $this->setVisit();
         $this->view = new Engine(realpath(dirname(__DIR__, 2) . "/resources/views"));
         $this->view->addData([
             'r' => $router,
         ]);
-        
+
         if (isset($_SESSION['uid']) && !empty($_SESSION['uid'])) {
-			
-			//check player sesison
-			if(!$udetail = (new User)->GetUserDetail($_SESSION['uid'])){
-				$this->logout();
-				return;
-			}
-			
+            //check player sesison
+            if (!$udetail = (new User())->GetUserDetail($_SESSION['uid'])) {
+                $this->logout();
+                return;
+            }
+
             checkPayments($_SESSION['uid']);
-            $this->udata = (new User)->findById($_SESSION['uid']);
+            $this->udata = (new User())->findById($_SESSION['uid']);
             $this->udetail = $udetail;
             $this->view->addData([
                 'udata' => $this->udata,
                 'udetail' => $this->udetail,
             ]);
         }
-
-       
     }
 
     public function response(string $param, array $values): string
@@ -87,12 +83,12 @@ class BaseController
 
     protected function setVisit(): void
     {
-        if(isset($_SESSION['visited_today'])){
+        if (isset($_SESSION['visited_today'])) {
             return;
         }
 
         $visitPath = __DIR__ . '/../../storage/cache/total-visits.json';
-        if(!file_exists($visitPath)){
+        if (!file_exists($visitPath)) {
             file_put_contents($visitPath, '1');
         }
 

@@ -39,9 +39,9 @@
                               </svg>
                            </span>
                         </button>
-                        <a href="landing.html">
-                           <img alt="Logo" src="https://freepikpsd.com/media/2019/10/ddtank-png-4-Transparent-Images.png" style="width: 160px; height: 50px!important;" class="logo-default h-25px h-lg-30px" />
-                           <img alt="Logo" src="https://freepikpsd.com/media/2019/10/ddtank-png-4-Transparent-Images.png" class="logo-sticky h-20px h-lg-25px" />
+                        <a href="<?= base_url() ?>">
+                           <img alt="Logo" src="<?= base_url() ?>/assets/media/logos/logo.png" style="width: 160px; height: 50px!important;" class="logo-default h-25px h-lg-30px" />
+                           <img alt="Logo" src="<?= base_url() ?>/assets/media/logos/logo.png" class="logo-sticky h-20px h-lg-25px" />
                         </a>
                      </div>
                      <div class="d-lg-block" id="kt_header_nav_wrapper">
@@ -49,9 +49,6 @@
                            <div class="menu menu-column flex-nowrap menu-rounded menu-lg-row menu-title-gray-500 menu-state-title-primary nav nav-flush fs-5 fw-bold" id="kt_landing_menu">
                               <div class="menu-item">
                                  <a class="menu-link nav-link active py-3 px-4 px-xxl-6" href="#kt_body" data-kt-scroll-toggle="true" data-kt-drawer-dismiss="true">Início</a>
-                              </div>
-                              <div class="menu-item">
-                                 <a class="menu-link nav-link py-3 px-4 px-xxl-6" href="#how-it-works" data-kt-scroll-toggle="true" data-kt-drawer-dismiss="true">Como jogar</a>
                               </div>
                               <div class="menu-item">
                                  <a class="menu-link nav-link py-3 px-4 px-xxl-6" href="#team" data-kt-scroll-toggle="true" data-kt-drawer-dismiss="true">Equipe</a>
@@ -475,7 +472,7 @@
                      </div>
                   </div>
                   <div class="text-center">
-                     <div class="octagon mx-auto mb-5 d-flex w-200px h-200px bgi-no-repeat bgi-size-contain bgi-position-center" style="background-image:url('https://cdn-cliquediario.nuneshost.com/wp-content/uploads/2019/06/5.12-2.jpg')"></div>
+                     <div class="octagon mx-auto mb-5 d-flex w-200px h-200px bgi-no-repeat bgi-size-contain bgi-position-center" style="background-image:url('https://cdn.discordapp.com/attachments/942075882233790486/942907485470228510/vantagens-de-ser-motorista-de-aplicativos.png');background-size: cover;"></div>
                      <div class="mb-0">
                         <a href="javascript:;" class="text-dark fw-bolder text-hover-primary fs-3">Jorge</a>
                         <div class="text-muted fs-6 fw-bold mt-1">Motorista uber</div>
@@ -532,7 +529,7 @@
                               </g>
                            </svg>
                         </span>
-                        by <a style="color: #fff;" href="https://www.codealpha.com.br/" target="_blank">codeAlpha</a>
+                        by <a style="color: #fff;" href="https://github.com/amorim778" target="_blank">biel778</a>
                      </span>
                   </div>
                </div>
@@ -697,11 +694,12 @@
       </div>
    </div>
    </div>
-   <div hidden class="modal fade" id="kt_modal_create_app" tabindex="-1" aria-hidden="true">
+   
+   <div class="modal show" id="newsModal" tabindex="-1" aria-hidden="true">
       <div class="modal-dialog modal-dialog-centered mw-900px">
          <div class="modal-content">
             <div class="modal-header">
-               <h2>Criar conta</h2>
+               <h2>Pré registro</h2>
                <div class="btn btn-sm btn-icon btn-active-color-primary" data-bs-dismiss="modal">
                   <span class="svg-icon svg-icon-1">
                      <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
@@ -713,433 +711,8 @@
                   </span>
                </div>
             </div>
-            <div class="modal-body py-lg-10 px-lg-10">
-               <div class="stepper stepper-pills stepper-column d-flex flex-column flex-xl-row flex-row-fluid" id="modal_create_person_stepper">
-                  <div class="d-flex justify-content-center justify-content-xl-start flex-row-auto w-100 w-xl-300px">
-                     <div class="stepper-nav ps-lg-10">
-                        <div class="stepper-item current" data-kt-stepper-element="nav">
-                           <div class="stepper-line w-40px"></div>
-                           <div class="stepper-icon w-40px h-40px">
-                              <i class="stepper-check fas fa-check"></i>
-                              <span class="stepper-number">1</span>
-                           </div>
-                           <div class="stepper-label">
-                              <h3 class="stepper-title">Detalhes</h3>
-                              <div class="stepper-desc">Nick e sexo</div>
-                           </div>
-                        </div>
-                        <div class="stepper-item" data-kt-stepper-element="nav">
-                           <div class="stepper-line w-40px"></div>
-                           <div class="stepper-icon w-40px h-40px">
-                              <i class="stepper-check fas fa-check"></i>
-                              <span class="stepper-number">2</span>
-                           </div>
-                           <div class="stepper-label">
-                              <h3 class="stepper-title">Armamento</h3>
-                              <div class="stepper-desc">Escolha sua arma</div>
-                           </div>
-                        </div>
-                        <div class="stepper-item" data-kt-stepper-element="nav">
-                           <div class="stepper-line w-40px"></div>
-                           <div class="stepper-icon w-40px h-40px">
-                              <i class="stepper-check fas fa-check"></i>
-                              <span class="stepper-number">3</span>
-                           </div>
-                           <div class="stepper-label">
-                              <h3 class="stepper-title">Estilo</h3>
-                              <div class="stepper-desc">Escolha roupa e cabelo</div>
-                           </div>
-                        </div>
-                        <div class="stepper-item" data-kt-stepper-element="nav">
-                           <div class="stepper-line w-40px"></div>
-                           <div class="stepper-icon w-40px h-40px">
-                              <i class="stepper-check fas fa-check"></i>
-                              <span class="stepper-number">4</span>
-                           </div>
-                           <div class="stepper-label">
-                              <h3 class="stepper-title">Billing</h3>
-                              <div class="stepper-desc">Provide payment details</div>
-                           </div>
-                        </div>
-                        <div class="stepper-item" data-kt-stepper-element="nav">
-                           <div class="stepper-line w-40px"></div>
-                           <div class="stepper-icon w-40px h-40px">
-                              <i class="stepper-check fas fa-check"></i>
-                              <span class="stepper-number">5</span>
-                           </div>
-                           <div class="stepper-label">
-                              <h3 class="stepper-title">Release</h3>
-                              <div class="stepper-desc">Review and Submit</div>
-                           </div>
-                        </div>
-                     </div>
-                  </div>
-                  <div class="flex-row-fluid py-lg-5 px-lg-15">
-                     <form class="form" novalidate="novalidate" id="kt_modal_create_app_form">
-                        <div class="current" data-kt-stepper-element="content">
-                           <div class="w-100">
-                              <div class="fv-row mb-10">
-                                 <label class="d-flex align-items-center fs-5 fw-bold mb-2">
-                                    <span class="required">Nome do personagem</span>
-                                    <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="Nome do seu personagem dentro do jogo"></i>
-                                 </label>
-                                 <input type="text" class="form-control form-control-lg form-control-solid" name="name" placeholder="" value="" />
-                              </div>
-                              <div class="fv-row">
-                                 <label class="d-flex align-items-center fs-5 fw-bold mb-4">
-                                    <span class="required">Sexo</span>
-                                    <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="Select your app category"></i>
-                                 </label>
-                                 <div class="fv-row">
-                                    <label class="d-flex flex-stack mb-5 cursor-pointer">
-                                       <span class="d-flex align-items-center me-2">
-                                          <span class="symbol symbol-50px me-6">
-                                             <img src="<?= base_url() ?>/assets/media/renders/vk8-thumb.png" alt="">
-                                          </span>
-                                          <span class="d-flex flex-column">
-                                             <span class="fw-bolder fs-6">Male</span>
-                                             <span class="fs-7 text-muted">The character will have male roles in the game.</span>
-                                          </span>
-                                       </span>
-                                       <span class="form-check form-check-custom form-check-solid">
-                                          <input class="form-check-input" type="radio" name="reg_sex" value="1" />
-                                       </span>
-                                    </label>
-                                    <label class="d-flex flex-stack mb-5 cursor-pointer">
-                                       <span class="d-flex align-items-center me-2">
-                                          <span class="symbol symbol-50px me-6">
-                                             <img src="<?= base_url() ?>/assets/media/renders/vk4-thumb.png" alt="">
-                                          </span>
-                                          <span class="d-flex flex-column">
-                                             <span class="fw-bolder fs-6">Female</span>
-                                             <span class="fs-7 text-muted">The character will have female roles in the game.</span>
-                                          </span>
-                                       </span>
-                                       <span class="form-check form-check-custom form-check-solid">
-                                          <input class="form-check-input" type="radio" name="reg_sex" value="2" />
-                                       </span>
-                                    </label>
-                                    <label class="d-flex flex-stack cursor-pointer">
-                                       <span class="d-flex align-items-center me-2">
-                                          <span class="symbol symbol-50px me-6">
-                                             <img src="<?= base_url() ?>/assets/media/renders/vk7-thumb.png" alt="">
-                                          </span>
-                                          <span class="d-flex flex-column">
-                                             <span class="fw-bolder fs-6">Trans</span>
-                                             <span class="fs-7 text-muted">The character will have female roles in the game.</span>
-                                          </span>
-                                       </span>
-                                       <span class="form-check form-check-custom form-check-solid">
-                                          <input class="form-check-input" type="radio" name="reg_sex" value="2" />
-                                       </span>
-                                    </label>
-                                 </div>
-                              </div>
-                           </div>
-                        </div>
-                        <div data-kt-stepper-element="content">
-                           <div class="w-100">
-                              <div class="fv-row">
-                                 <label class="d-flex align-items-center fs-5 fw-bold mb-4">
-                                    <span class="required">Selecione sua arma</span>
-                                    <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="Esolha uma arma para começar a aventura"></i>
-                                 </label>
-                                 <label class="d-flex flex-stack cursor-pointer mb-5">
-                                    <span class="d-flex align-items-center me-2">
-                                       <span class="symbol symbol-50px me-6" data-bs-toggle="popover" data-bs-dismiss="true" data-bs-html="true" title="Epic ares antigo" data-bs-content="<ul><li>ataque: 250</li><li>defesa: 250</li></ul>">
-                                          <img src="<? config('app.resource') ?>/image/arm/Sspear2/00.png" alt="">
-                                       </span>
-                                       <span class="d-flex flex-column">
-                                          <span class="fw-bolder fs-6">Epic Ares Antigo</span>
-                                          <span class="fs-7 text-muted">+ ataque</span>
-                                       </span>
-                                    </span>
-                                    <span class="form-check form-check-custom form-check-solid">
-                                       <input class="form-check-input" type="radio" name="reg_arm" value="4" />
-                                    </span>
-                                 </label>
-                                 <label class="d-flex flex-stack cursor-pointer mb-5">
-                                    <span class="d-flex align-items-center me-2">
-                                       <span class="symbol symbol-50px me-6">
-                                          <img src="<? config('app.resource') ?>/image/arm/pumpkin2/00.png" alt="">
-                                       </span>
-                                       <span class="d-flex flex-column">
-                                          <span class="fw-bolder fs-6">Canhão abóbora</span>
-                                          <span class="fs-7 text-muted">+ defesa</span>
-                                       </span>
-                                    </span>
-                                    <span class="form-check form-check-custom form-check-solid">
-                                       <input class="form-check-input" type="radio" name="reg_arm" value="4" />
-                                    </span>
-                                 </label>
-                                 <label class="d-flex flex-stack cursor-pointer mb-5">
-                                    <span class="d-flex align-items-center me-2">
-                                       <span class="symbol symbol-50px me-6">
-                                          <img src="<? config('app.resource') ?>/image/arm/aircon/00.png" alt="">
-                                       </span>
-                                       <span class="d-flex flex-column">
-                                          <span class="fw-bolder fs-6">Super ar condicionado</span>
-                                          <span class="fs-7 text-muted">+ agilidade</span>
-                                       </span>
-                                    </span>
-                                    <span class="form-check form-check-custom form-check-solid">
-                                       <input class="form-check-input" type="radio" name="reg_arm" value="4" />
-                                    </span>
-                                 </label>
-                                 <label class="d-flex flex-stack cursor-pointer mb-5">
-                                    <span class="d-flex align-items-center me-2">
-                                       <span class="symbol symbol-50px me-6">
-                                          <img src="<? config('app.resource') ?>/image/arm/magicbook/00.png" alt="">
-                                       </span>
-                                       <span class="d-flex flex-column">
-                                          <span class="fw-bolder fs-6">Livro mágico</span>
-                                          <span class="fs-7 text-muted">+ sorte</span>
-                                       </span>
-                                    </span>
-                                    <span class="form-check form-check-custom form-check-solid">
-                                       <input class="form-check-input" type="radio" name="reg_arm" value="4" />
-                                    </span>
-                                 </label>
-                                 <label class="d-flex flex-stack cursor-pointer mb-5">
-                                    <span class="d-flex align-items-center me-2">
-                                       <span class="symbol symbol-50px me-6">
-                                          <img src="<? config('app.resource') ?>/image/arm/ygzq/00.png" alt="">
-                                       </span>
-                                       <span class="d-flex flex-column">
-                                          <span class="fw-bolder fs-6">Lança sagrada</span>
-                                          <span class="fs-7 text-muted">balanceamento</span>
-                                       </span>
-                                    </span>
-                                    <span class="form-check form-check-custom form-check-solid">
-                                       <input class="form-check-input" type="radio" name="reg_arm" value="4" />
-                                    </span>
-                                 </label>
-                              </div>
-                           </div>
-                        </div>
-                        <div data-kt-stepper-element="content">
-                           <div class="w-100">
-                              <div class="fv-row mb-7">
-                                 <label class="d-flex align-items-center fs-5 fw-bold mb-4">
-                                    <span class="required">Escolha seu cabelo</span>
-                                    <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="Esolha uma arma para começar a aventura"></i>
-                                 </label>
-                                 <label class="d-flex flex-stack cursor-pointer mb-5">
-                                    <span class="d-flex align-items-center me-2">
-                                       <span class="symbol symbol-50px me-6">
-                                          <img src="<? config('app.resource') ?>/image/equip/m/hair/hair9/icon_1.png" alt="">
-                                       </span>
-                                       <span class="d-flex flex-column">
-                                          <span class="fw-bolder fs-6">Cabeça de milho</span>
-                                          <span class="fs-7 text-muted">balanceado</span>
-                                       </span>
-                                    </span>
-                                    <span class="form-check form-check-custom form-check-solid">
-                                       <input class="form-check-input" type="radio" name="reg_hair" value="4" />
-                                    </span>
-                                 </label>
-                                 <label class="d-flex flex-stack cursor-pointer mb-5">
-                                    <span class="d-flex align-items-center me-2">
-                                       <span class="symbol symbol-50px me-6">
-                                          <img src="<? config('app.resource') ?>/image/equip/m/hair/hair10/icon_1.png" alt="">
-                                       </span>
-                                       <span class="d-flex flex-column">
-                                          <span class="fw-bolder fs-6">Leve brisa</span>
-                                          <span class="fs-7 text-muted">balanceado</span>
-                                       </span>
-                                    </span>
-                                    <span class="form-check form-check-custom form-check-solid">
-                                       <input class="form-check-input" type="radio" name="reg_hair" value="4" />
-                                    </span>
-                                 </label>
-                              </div>
-                              <div class="fv-row mb-7">
-                                 <label class="d-flex align-items-center fs-5 fw-bold mb-4">
-                                    <span class="required">Escolha sua roupa</span>
-                                    <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="Esolha uma arma para começar a aventura"></i>
-                                 </label>
-                                 <label class="d-flex flex-stack cursor-pointer mb-5">
-                                    <span class="d-flex align-items-center me-2">
-                                       <span class="symbol symbol-50px me-6">
-                                          <img src="<? config('app.resource') ?>/image/equip/m/cloth/cloth3/icon_1.png" alt="">
-                                       </span>
-                                       <span class="d-flex flex-column">
-                                          <span class="fw-bolder fs-6">Movimento HIP-HOP</span>
-                                          <span class="fs-7 text-muted">balanceado</span>
-                                       </span>
-                                    </span>
-                                    <span class="form-check form-check-custom form-check-solid">
-                                       <input class="form-check-input" type="radio" name="reg_cloth" value="4" />
-                                    </span>
-                                 </label>
-                                 <label class="d-flex flex-stack cursor-pointer mb-5">
-                                    <span class="d-flex align-items-center me-2">
-                                       <span class="symbol symbol-50px me-6">
-                                          <img src="<? config('app.resource') ?>/image/equip/m/cloth/cloth4/icon_1.png" alt="">
-                                       </span>
-                                       <span class="d-flex flex-column">
-                                          <span class="fw-bolder fs-6">Roupa de Taekwondo</span>
-                                          <span class="fs-7 text-muted">balanceado</span>
-                                       </span>
-                                    </span>
-                                    <span class="form-check form-check-custom form-check-solid">
-                                       <input class="form-check-input" type="radio" name="reg_cloth" value="4" />
-                                    </span>
-                                 </label>
-                              </div>
-                           </div>
-                        </div>
-                        <div data-kt-stepper-element="content">
-                           <div class="w-100">
-                              <div class="d-flex flex-column mb-7 fv-row">
-                                 <label class="d-flex align-items-center fs-6 fw-bold form-label mb-2">
-                                    <span class="required">Name On Card</span>
-                                    <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="Specify a card holder's name"></i>
-                                 </label>
-                                 <input type="text" class="form-control form-control-solid" placeholder="" name="card_name" value="Max Doe" />
-                              </div>
-                              <div class="d-flex flex-column mb-7 fv-row">
-                                 <label class="required fs-6 fw-bold form-label mb-2">Card Number</label>
-                                 <div class="position-relative">
-                                    <input type="text" class="form-control form-control-solid" placeholder="Enter card number" name="card_number" value="4111 1111 1111 1111" />
-                                    <div class="position-absolute translate-middle-y top-50 end-0 me-5">
-                                       <img src="<?= base_url() ?>/assets/media/svg/card-logos/visa.svg" alt="" class="h-25px" />
-                                       <img src="<?= base_url() ?>/assets/media/svg/card-logos/mastercard.svg" alt="" class="h-25px" />
-                                       <img src="<?= base_url() ?>/assets/media/svg/card-logos/american-express.svg" alt="" class="h-25px" />
-                                    </div>
-                                 </div>
-                              </div>
-                              <div class="row mb-10">
-                                 <div class="col-md-8 fv-row">
-                                    <label class="required fs-6 fw-bold form-label mb-2">Expiration Date</label>
-                                    <div class="row fv-row">
-                                       <div class="col-6">
-                                          <select name="card_expiry_month" class="form-select form-select-solid" data-control="select2" data-hide-search="true" data-placeholder="Month">
-                                             <option></option>
-                                             <option value="1">1</option>
-                                             <option value="2">2</option>
-                                             <option value="3">3</option>
-                                             <option value="4">4</option>
-                                             <option value="5">5</option>
-                                             <option value="6">6</option>
-                                             <option value="7">7</option>
-                                             <option value="8">8</option>
-                                             <option value="9">9</option>
-                                             <option value="10">10</option>
-                                             <option value="11">11</option>
-                                             <option value="12">12</option>
-                                          </select>
-                                       </div>
-                                       <div class="col-6">
-                                          <select name="card_expiry_year" class="form-select form-select-solid" data-control="select2" data-hide-search="true" data-placeholder="Year">
-                                             <option></option>
-                                             <option value="2021">2021</option>
-                                             <option value="2022">2022</option>
-                                             <option value="2023">2023</option>
-                                             <option value="2024">2024</option>
-                                             <option value="2025">2025</option>
-                                             <option value="2026">2026</option>
-                                             <option value="2027">2027</option>
-                                             <option value="2028">2028</option>
-                                             <option value="2029">2029</option>
-                                             <option value="2030">2030</option>
-                                             <option value="2031">2031</option>
-                                          </select>
-                                       </div>
-                                    </div>
-                                 </div>
-                                 <div class="col-md-4 fv-row">
-                                    <label class="d-flex align-items-center fs-6 fw-bold form-label mb-2">
-                                       <span class="required">CVV</span>
-                                       <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="Enter a card CVV code"></i>
-                                    </label>
-                                    <div class="position-relative">
-                                       <input type="text" class="form-control form-control-solid" minlength="3" maxlength="4" placeholder="CVV" name="card_cvv" />
-                                       <div class="position-absolute translate-middle-y top-50 end-0 me-3">
-                                          <span class="svg-icon svg-icon-2hx">
-                                             <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
-                                                <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-                                                   <rect x="0" y="0" width="24" height="24" />
-                                                   <rect fill="#000000" opacity="0.3" x="2" y="5" width="20" height="14" rx="2" />
-                                                   <rect fill="#000000" x="2" y="8" width="20" height="3" />
-                                                   <rect fill="#000000" opacity="0.3" x="16" y="14" width="4" height="2" rx="1" />
-                                                </g>
-                                             </svg>
-                                          </span>
-                                       </div>
-                                    </div>
-                                 </div>
-                              </div>
-                              <div class="d-flex flex-stack">
-                                 <div class="me-5">
-                                    <label class="fs-6 fw-bold form-label">Save Card for further billing?</label>
-                                    <div class="fs-7 fw-bold text-muted">If you need more info, please check budget planning</div>
-                                 </div>
-                                 <label class="form-check form-switch form-check-custom form-check-solid">
-                                    <input class="form-check-input" type="checkbox" value="1" checked="checked" />
-                                    <span class="form-check-label fw-bold text-muted">Save Card</span>
-                                 </label>
-                              </div>
-                           </div>
-                        </div>
-                        <div data-kt-stepper-element="content">
-                           <div class="w-100 text-center">
-                              <h1 class="fw-bolder text-dark mb-3">Release!</h1>
-                              <div class="text-muted fw-bold fs-3">Submit your app to kickstart your project.</div>
-                              <div class="text-center px-4 py-15">
-                                 <img src="<?= base_url() ?>/assets/media/illustrations/todo.png" alt="" class="mw-100 mh-150px" />
-                              </div>
-                           </div>
-                        </div>
-                        <div class="d-flex flex-stack pt-10">
-                           <div class="me-2">
-                              <button type="button" class="btn btn-lg btn-light-primary me-3" data-kt-stepper-action="previous">
-                                 <span class="svg-icon svg-icon-3 me-1">
-                                    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
-                                       <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-                                          <polygon points="0 0 24 0 24 24 0 24" />
-                                          <rect fill="#000000" opacity="0.3" transform="translate(15.000000, 12.000000) scale(-1, 1) rotate(-90.000000) translate(-15.000000, -12.000000)" x="14" y="7" width="2" height="10" rx="1" />
-                                          <path d="M3.7071045,15.7071045 C3.3165802,16.0976288 2.68341522,16.0976288 2.29289093,15.7071045 C1.90236664,15.3165802 1.90236664,14.6834152 2.29289093,14.2928909 L8.29289093,8.29289093 C8.67146987,7.914312 9.28105631,7.90106637 9.67572234,8.26284357 L15.6757223,13.7628436 C16.0828413,14.136036 16.1103443,14.7686034 15.7371519,15.1757223 C15.3639594,15.5828413 14.7313921,15.6103443 14.3242731,15.2371519 L9.03007346,10.3841355 L3.7071045,15.7071045 Z" fill="#000000" fill-rule="nonzero" transform="translate(9.000001, 11.999997) scale(-1, -1) rotate(90.000000) translate(-9.000001, -11.999997)" />
-                                       </g>
-                                    </svg>
-                                 </span>
-                                 Back
-                              </button>
-                           </div>
-                           <div>
-                              <button type="button" class="btn btn-lg btn-primary" data-kt-stepper-action="submit">
-                                 <span class="indicator-label">
-                                    Submit
-                                    <span class="svg-icon svg-icon-3 ms-2 me-0">
-                                       <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
-                                          <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-                                             <polygon points="0 0 24 0 24 24 0 24" />
-                                             <rect fill="#000000" opacity="0.5" transform="translate(8.500000, 12.000000) rotate(-90.000000) translate(-8.500000, -12.000000)" x="7.5" y="7.5" width="2" height="9" rx="1" />
-                                             <path d="M9.70710318,15.7071045 C9.31657888,16.0976288 8.68341391,16.0976288 8.29288961,15.7071045 C7.90236532,15.3165802 7.90236532,14.6834152 8.29288961,14.2928909 L14.2928896,8.29289093 C14.6714686,7.914312 15.281055,7.90106637 15.675721,8.26284357 L21.675721,13.7628436 C22.08284,14.136036 22.1103429,14.7686034 21.7371505,15.1757223 C21.3639581,15.5828413 20.7313908,15.6103443 20.3242718,15.2371519 L15.0300721,10.3841355 L9.70710318,15.7071045 Z" fill="#000000" fill-rule="nonzero" transform="translate(14.999999, 11.999997) scale(1, -1) rotate(90.000000) translate(-14.999999, -11.999997)" />
-                                          </g>
-                                       </svg>
-                                    </span>
-                                 </span>
-                                 <span class="indicator-progress">Please wait...
-                                    <span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
-                              </button>
-                              <button type="button" class="btn btn-lg btn-primary" data-kt-stepper-action="next">
-                                 Continue
-                                 <span class="svg-icon svg-icon-3 ms-1 me-0">
-                                    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
-                                       <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-                                          <polygon points="0 0 24 0 24 24 0 24" />
-                                          <rect fill="#000000" opacity="0.5" transform="translate(8.500000, 12.000000) rotate(-90.000000) translate(-8.500000, -12.000000)" x="7.5" y="7.5" width="2" height="9" rx="1" />
-                                          <path d="M9.70710318,15.7071045 C9.31657888,16.0976288 8.68341391,16.0976288 8.29288961,15.7071045 C7.90236532,15.3165802 7.90236532,14.6834152 8.29288961,14.2928909 L14.2928896,8.29289093 C14.6714686,7.914312 15.281055,7.90106637 15.675721,8.26284357 L21.675721,13.7628436 C22.08284,14.136036 22.1103429,14.7686034 21.7371505,15.1757223 C21.3639581,15.5828413 20.7313908,15.6103443 20.3242718,15.2371519 L15.0300721,10.3841355 L9.70710318,15.7071045 Z" fill="#000000" fill-rule="nonzero" transform="translate(14.999999, 11.999997) scale(1, -1) rotate(90.000000) translate(-14.999999, -11.999997)" />
-                                       </g>
-                                    </svg>
-                                 </span>
-                              </button>
-                           </div>
-                        </div>
-                     </form>
-                  </div>
-               </div>
+            <div class="modal-body" style="padding:0!important;">
+              <img src="https://cdn.discordapp.com/attachments/917063691164319745/942901481651204126/273982768_5588328754527494_2334032082882171548_n.png" style="width: 100%;border-bottom-left-radius: 8px;border-bottom-right-radius: 8px;" alt="">
             </div>
          </div>
       </div>
@@ -1152,11 +725,11 @@
    <script>
 
       <?php
-         if (isset($_GET['act']) && $_GET['act'] == 'register') {
-             echo "document.querySelector('#register_button_modal').click();";
-         }
-      ?>
-      <?php if (isset($_SESSION['uid'])): ?>
+        if (isset($_GET['act']) && $_GET['act'] == 'register') {
+            echo "document.querySelector('#register_button_modal').click();";
+        }
+        ?>
+      <?php if (isset($_SESSION['uid'])) : ?>
          function checkState(){
             $.get("<?= $r->route('web.check.state') ?>", function( ) {});
          }
@@ -1314,6 +887,11 @@
             }
 
          });
+      });
+   </script>
+   <script type="text/javascript">
+      $(window).on('load', function() {
+         $('#newsModal').modal('show');
       });
    </script>
    <noscript>

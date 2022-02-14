@@ -318,8 +318,8 @@
                 <div class="topbar d-flex align-items-stretch flex-shrink-0">
                     <div class="d-flex align-items-center me-n3 ms-1 ms-lg-3" id="kt_header_user_menu_toggle">
                         <div class="d-flex flex-column me-3" style="align-items: end;">
-                            <div class="fw-bolder d-flex text-white align-items-end fs-5">pepepe1</div>
-                            <a href="#" class="fw-bold text-muted text-hover-primary fs-7">pepepe1@gmail.com</a>
+                            <div class="fw-bolder d-flex text-white align-items-end fs-5"><?= $udata->first_name ?></div>
+                            <a href="#" class="fw-bold text-muted text-hover-primary fs-7"><?= $udata->email ?></a>
                         </div>
                         <div class="btn btn-icon btn-active-light-primary w-30px h-30px w-md-40px h-md-40px" data-kt-menu-trigger="click" data-kt-menu-attach="parent" data-kt-menu-placement="bottom-end" data-kt-menu-flip="bottom">
                             <img class="h-40px w-40px rounded" src="<?= getImage('profile', $udata->photo) ?>" alt="" />

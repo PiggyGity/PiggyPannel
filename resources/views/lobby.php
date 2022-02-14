@@ -479,13 +479,11 @@
                     <div class="card-body pt-5">
                         <div class="timeline-label">
                             <div class="timeline-item">
-                                <div class="timeline-label fw-bolder text-gray-800 fs-6">08:42</div>
+                                <div class="timeline-label fw-bolder text-gray-800 fs-6">20:00</div>
                                 <div class="timeline-badge">
                                     <i class="fa fa-genderless text-warning fs-1"></i>
                                 </div>
-                                <div class="fw-mormal timeline-content text-muted ps-3">Outlines keep
-                                    you honest. And keep structure
-                                </div>
+                                <div class="fw-mormal timeline-content text-muted ps-3">Abertura de novo servidor</div>
                             </div>
                         </div>
                     </div>
@@ -527,7 +525,7 @@
                     <div class="card-header border-0 pt-5">
                         <h3 class="card-title align-items-start flex-column">
                             <span class="card-label fw-bolder fs-3 mb-1">Jogadores mais fortes</span>
-                            <span class="text-muted mt-1 fw-bold fs-7">Os mais fortes de ddtankAlpha</span>
+                            <span class="text-muted mt-1 fw-bold fs-7">Os mais fortes de <?= $_ENV['ProjectName']; ?></span>
                         </h3>
                     </div>
                     <div class="card-body py-3">

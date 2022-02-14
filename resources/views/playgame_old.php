@@ -1,7 +1,7 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <title>
-       ddtankAlpha - Tela de jogo
+    <?= $_ENV['ProjectName'] ?> - Tela de jogo
     </title>
     <link rel="icon" href="https://pbs.twimg.com/profile_images/1391875988364091400/kQCNQnOV.jpg" type="image/x-icon">
     <link rel="stylesheet" href="<?= base_url('/assets/css/playgame.css') ?>">

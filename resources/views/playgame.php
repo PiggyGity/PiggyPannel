@@ -1,7 +1,7 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <title>
-        ddtankAlpha - Tela de jogo
+    <?= $_ENV['ProjectName'] ?> - Tela de jogo
     </title>
     <link rel="icon" href="https://pbs.twimg.com/profile_images/1391875988364091400/kQCNQnOV.jpg" type="image/x-icon">
     <link href="<?= base_url() ?>/assets/plugins/global/plugins.bundle.css" rel="stylesheet" type="text/css" />
@@ -81,7 +81,7 @@
 
     <script type="text/javascript">
         window.onbeforeunload = function(e) {
-            return 'O ddtankAlpha está prestes a ser fechado, tem certeza?';
+            return 'O <?= $_ENV['ProjectName'] ?> está prestes a ser fechado, tem certeza?';
         };
     </script>
     <script src="<?= base_url() ?>/assets/plugins/global/plugins.bundle.js"></script>

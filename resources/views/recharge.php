@@ -58,7 +58,7 @@
                     <!--end::Heading-->
                     <!--begin::Nav group-->
                     <div class="nav-group nav-group-outline mx-auto mb-15" data-kt-buttons="true">
-                        <a href="#" class="btn btn-color-gray-400 btn-active btn-active-secondary px-6 py-3 me-2 active">S1 - ddtankAlpha</a>
+                        <a href="#" class="btn btn-color-gray-400 btn-active btn-active-secondary px-6 py-3 me-2 active">S1 - <?= $_ENV['ProjectName'] ?></a>
                         <!-- <a href="#" class="btn btn-color-gray-400 btn-active btn-active-secondary px-6 py-3">S2 - Em breve</a>-->
                     </div>
                     <!--end::Nav group-->

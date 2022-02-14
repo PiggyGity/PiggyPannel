@@ -3,7 +3,6 @@
 namespace App\Controllers;
 
 use App\Models\User;
-use App\Models\Visit;
 use League\Plates\Engine;
 
 class BaseController
@@ -18,40 +17,31 @@ class BaseController
 
     public function __construct($router)
     {
-        $request = filter_var_array($_REQUEST, FILTER_SANITIZE_STRIPPED);
-        
+        $request = filter_var_array($_REQUEST, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+
         $this->request = (object) $request;
-		$this->router = $router;
-        $this->visit();
+        $this->router = $router;
+        $this->setVisit();
         $this->view = new Engine(realpath(dirname(__DIR__, 2) . "/resources/views"));
         $this->view->addData([
             'r' => $router,
         ]);
-        
+
         if (isset($_SESSION['uid']) && !empty($_SESSION['uid'])) {
-			
-			//check player sesison
-			if(!(new User)->GetUserDetail($_SESSION['uid'])){
-				$this->logout();
-				return;
-			}
-			
-			//check user person
-			if(!$ug = (new User)->GetUserDetail($_SESSION['uid'])){
-				$this->logout();
-				return;
-			}
-			
+            //check player sesison
+            if (!$udetail = (new User())->GetUserDetail($_SESSION['uid'])) {
+                $this->logout();
+                return;
+            }
+
             checkPayments($_SESSION['uid']);
-            $this->udata = (new User)->findById($_SESSION['uid']);
-            $this->udetail = (new User)->GetUserDetail($_SESSION['uid']);
+            $this->udata = (new User())->findById($_SESSION['uid']);
+            $this->udetail = $udetail;
             $this->view->addData([
                 'udata' => $this->udata,
                 'udetail' => $this->udetail,
             ]);
         }
-
-       
     }
 
     public function response(string $param, array $values): string
@@ -78,13 +68,8 @@ class BaseController
 
     public function state_check()
     {
-        if (isset($_GET['uid'])) {
-            checkPayments($_GET['uid']);
-            return;
-        }
-
-        if (isset($_SESSION['uid'])) {
-            checkPayments($_SESSION['uid']);
+        if (isset($_GET['uid']) or $_SESSION['uid']) {
+            checkPayments($_GET['uid'] ?? $_SESSION['uid']);
             return;
         }
     }
@@ -96,22 +81,19 @@ class BaseController
         return;
     }
 
-    protected function visit(): void
+    protected function setVisit(): void
     {
-		
-        $v = new Visit;
-
-        if (!$day = $v->find("date = :current", "current=" . date("Y-m-d") . "")->fetch()) {
-            $v->date = date("Y-m-d");
-            $v->count = 1;
-            $v->save();
+        if (isset($_SESSION['visited_today'])) {
             return;
         }
 
-        $day->date = date("Y-m-d");
-        $day->count = $day->_data->count + 1;
-        $day->save();
+        $visitPath = __DIR__ . '/../../storage/cache/total-visits.json';
+        if (!file_exists($visitPath)) {
+            file_put_contents($visitPath, '1');
+        }
 
+        $content = file_get_contents($visitPath);
+        file_put_contents($visitPath, ((int)$content + 1));
         return;
     }
 }

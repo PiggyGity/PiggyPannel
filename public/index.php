@@ -29,7 +29,8 @@ $router->get('/simple/auth', 'LandingController:simple_auth', 'web.simple_auth')
 
 $router->get('/recuperar-conta', 'PagesController:recover', 'web.recover');
 $router->get('/lobby', 'PagesController:lobby', 'web.lobby');
-$router->get('/teste', 'PagesController:teste', 'web.teste');
+
+//$router->get('/teste', 'PagesController:teste', 'web.teste');
 $router->get('/recarga', 'PagesController:recharge', 'web.recharge');
 $router->get('/jogar', 'PagesController:playgame', 'web.playgame');
 $router->get('/sair', 'PagesController:logout', 'web.logout');
@@ -44,7 +45,7 @@ $router->post('/payment/notifications', 'InvoiceController:notifications', 'web.
 $router->get('/fatura/{pid}', 'InvoiceController:create', 'web.invoice.create');
 $router->get('/fatura/detalhes/{id}', 'InvoiceController:detail', 'web.invoice.detail');
 $router->get('/health/state', 'BaseController:state_check', 'web.check.state');
-
+$router->get('/whoops/manutencao', 'PagesController:maintenance', 'web.maintenance');
 
 /**
  * ADMIN ROUTES
@@ -55,7 +56,7 @@ $router->get('/item/enviar', 'AdminController:send_item', 'admin.send.item');
 $router->post('/usuario/banir', 'AdminController:user_ban_in_game', 'admin.user.ban');
 $router->post('/usuario/desbanir', 'AdminController:user_unban_in_game', 'admin.user.unban');
 $router->post('/item/data', 'AdminController:item_data', 'admin.item.data');
-$router->post('/item/user/enviar', 'AdminController:sendItemToPlayer', 'admin.item.send.byuser' );
+$router->post('/item/user/enviar', 'AdminController:sendItemToPlayer', 'admin.item.send.byuser');
 
 
 
@@ -81,8 +82,8 @@ $router->post('/account/simple/signup', "RequestController:simple_signup", 'api.
 $router->post('/account/signin', 'RequestController:signin', 'api.account.signin');
 $router->post('/account/signup', 'RequestController:signup', 'api.account.signup');
 $router->post('/account/playgame', 'RequestController:playgame', 'api.account.playgame');
-$router->post('/chat/data', 'RequestController:getChatData', 'api.chat.data');
-$router->post('/chat/send', 'RequestController:sendChatUser', 'api.chat.send');
+//$router->post('/chat/data', 'RequestController:getChatData', 'api.chat.data');
+//$router->post('/chat/send', 'RequestController:sendChatUser', 'api.chat.send');
 
 $router->post('/account/setting/change/nickname', 'AccountController:change_nickname', 'api.account.settings.change.nickname');
 $router->post('/account/setting/change/avatar', 'AccountController:change_avatar', 'api.account.settings.change.avatar');

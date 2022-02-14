@@ -208,7 +208,7 @@ class AccountController extends BaseController
 
     public function change_avatar(?array $request)
     {
-        $request = filter_var_array($request, FILTER_SANITIZE_STRIPPED);
+        $request = filter_var_array($request, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
         $request = (object) $request;
 
         $user = (new User)->findById($_SESSION['uid']);

@@ -3,7 +3,8 @@
     "require": {
         "league/plates": "^3.4",
         "mercadopago/dx-php": "^2.3",
-        "vlucas/phpdotenv": "^5.4"
+        "vlucas/phpdotenv": "^5.4",
+        "squizlabs/php_codesniffer": "^3.6"
     },
     "authors": [
         {

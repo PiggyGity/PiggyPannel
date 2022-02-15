@@ -19,5 +19,7 @@ return [
 
     'Name' => $_ENV['ProjectName'],
 
-    'Request'=> $_ENV['RequestLink']
+    'Request'=> $_ENV['RequestLink'],
+
+    'Maintenance' => filter_var($_ENV['maintenance'], FILTER_VALIDATE_BOOLEAN)
 ];

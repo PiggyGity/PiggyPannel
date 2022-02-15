@@ -127,7 +127,7 @@ class PagesController extends BaseController
             $this->router->redirect('web.landing');
         }
 
-        if ($_ENV['maintenance']) {
+        if (config('app.Maintenance')) {
             $this->router->redirect('web.maintenance');
             return;
         }

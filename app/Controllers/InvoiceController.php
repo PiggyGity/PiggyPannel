@@ -109,7 +109,7 @@ class InvoiceController extends BaseController
         $item->unit_price = number_format($product->value, 2);
 
         $preference->items = [$item];
-        $preference->notification_url = config('payment.back_url');
+        $preference->notification_url = base_url('recharge/mercadopago/notification');;
         $preference->external_reference = $invoice->reference;
 
         $preference->save();

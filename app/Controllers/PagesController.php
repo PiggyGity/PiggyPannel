@@ -2,31 +2,26 @@
 
 namespace App\Controllers;
 
-use App\Models\DbTankSchema;
 use App\Models\Invoice;
 use App\Models\Product;
 use App\Models\User;
-use App\Utils\PicPay;
 
 class PagesController extends BaseController
 {
     public function __construct($router)
     {
-
         parent::__construct($router);
         if (!isset($_SESSION['uid'])) {
             $this->router->redirect('web.landing');
             return true;
         }
-
-        checkPayments($_SESSION['uid']);
     }
     
     public function purchases_history()
     {
-        $date = date('Y-m-d H:i:s',(strtotime ('-3 day', strtotime(date('Y-m-d H:i:s')))));
+        $date = date('Y-m-d H:i:s',(strtotime ( '-3 day' , strtotime (date('Y-m-d H:i:s')))));
         echo $this->view->render('account/purchases_history', [
-            "invoice_list" => (new Invoice())->find("uid = :id AND [state] = :state OR created_at >= :date", "id={$_SESSION['uid']}&state=approved&date={$date}")->fetch(true)
+            "invoice_list" => (new Invoice())->find("uid = :id AND (state = :state OR created_at >= :date)", "id={$_SESSION['uid']}&state=approved&date={$date}")->order('state ASC')->fetch(true)
         ]);
         return;
     }

@@ -5,8 +5,10 @@ namespace App\Controllers;
 use App\Models\Invoice as InvoiceModel;
 use App\Models\Product;
 use App\Models\User;
+use App\Utils\PicPay;
 use MercadoPago;
 use SoapClient;
+use stdClass;
 
 class InvoiceController extends BaseController
 {
@@ -20,14 +22,12 @@ class InvoiceController extends BaseController
         }
 
         $product = (new Product())->findById($pid);
-        $invoice = new InvoiceModel;
+        $invoice = new InvoiceModel();
         $ereference = "invoice-" . uniqid(rand(1111, 9999));
 
-        //https://www.yourserver.com/notifications?source_news=ipn
-
         if ($inovice_data = $invoice->find("uid = :u AND pid = :p AND state = :st1", "u=$uid&p=$pid&st1=created")->fetch()) {
-            $ereference = $inovice_data->reference;
-            // echo "fatura ja existia portanto foi carreado os valores ja existentes";
+            $inovice_data->reference = $ereference;
+            $inovice_data->save();
         } else {
             $invoice->uid = $_SESSION['uid'];
             $invoice->pid = $product->id;
@@ -41,14 +41,15 @@ class InvoiceController extends BaseController
                 echo "erro ao gerar fatura nova :( \n" . PHP_EOL;
                 dd($invoice);
             }
+
             $inovice_data = $invoice->find("uid = :u AND pid = :p AND state = :st1", "u=$uid&p=$pid&st1=created")->fetch();
-            // echo "fatura nao existia mais foi criada agora";
         }
 
         echo $this->view->render('invoice', [
             "invoice_data" => $inovice_data,
-            "product_data" => (new Product)->findById($pid),
-            "mp_data" => $this->create_mp($pid, $ereference)
+            "product_data" => (new Product())->findById($pid),
+            "mp_data" => $this->create_mp($pid, $ereference),
+            "picpay_data" => $this->create_picpay($pid, $ereference),
         ]);
         return;
     }
@@ -70,7 +71,7 @@ class InvoiceController extends BaseController
 
         echo $this->view->render('invoice_detail', [
             "invoice_data" => $invoice,
-            "product_data" => (new Product)->findById($invoice->pid)
+            "product_data" => (new Product())->findById($invoice->pid)
         ]);
         return;
     }
@@ -93,10 +94,37 @@ class InvoiceController extends BaseController
         $item->unit_price = number_format($product->value, 2);
 
         $preference->items = [$item];
-        $preference->notification_url = base_url('payment/notifications');
+        $preference->notification_url = config('payment.back_url');
         $preference->external_reference = $reference;
 
         $preference->save();
+
+        return $preference;
+    }
+
+    public function create_picpay($pid, $reference)
+    {
+        $product = (new Product())->findById($pid);
+
+        $picpay = new PicPay(config('payment.picpay_token'), config('payment.picpay_seller_token'), config('payment.picpay_callback_url'));
+
+        $item = new stdClass();
+        $item->ref = $reference;
+        $item->nome = $product->name;
+        $item->valor = number_format($product->value, 2);
+
+        $buyer = new stdClass();
+        $buyer->nome = $this->udata->first_name;
+        $buyer->sobreNome = $this->udata->last_name;
+        $buyer->cpf = '000.000.000-00';
+        $buyer->email = $this->udata->email;
+        $buyer->telefone = '11999999999';
+
+        $preference = $picpay->request($item, $buyer);
+
+        if (isset($preference->message)) {
+            die($preference->message);
+        }
 
         return $preference;
     }
@@ -130,14 +158,14 @@ class InvoiceController extends BaseController
             }
         }
 
-        $invoice = new InvoiceModel;
+        $invoice = new InvoiceModel();
         $fatura = $invoice->find("reference = :ref", "ref=$merchant_order->external_reference")->fetch();
-        $pinfo = (new Product)->findById($fatura->pid);
+        $pinfo = (new Product())->findById($fatura->pid);
         if ($paid_amount >= $merchant_order->total_amount) {
             //Aqui foi pago e aprovado so salvar no banco e enviar os cupons external_reference
             $fatura->invoiceid = $_REQUEST["id"];
             $fatura->state = $merchant_order->payments[0]->status;
-            $user = (new User)->findById($fatura->uid);
+            $user = (new User())->findById($fatura->uid);
 
             if ($fatura->is_send != 1) {
                 $data = [
@@ -150,14 +178,14 @@ class InvoiceController extends BaseController
                     '10.1.0.4',
                     udetail_by_uid($fatura->uid)->NickName
                 ];
-                if ((new Product)->createChargeMoney($data)) {
+                if ((new Product())->createChargeMoney($data)) {
                     $fatura->is_send = 1;
                     if ($pinfo->IsReward) {
-                        (new Product)->SendRewardRecharge($_SESSION['uid'], $fatura->pid);
+                        (new Product())->SendRewardRecharge($_SESSION['uid'], $fatura->pid);
                     }
 
                     try {
-                        $soap = new SoapClient($_ENV["Server_Wsdl"].'?wsdl');
+                        $soap = new SoapClient($_ENV["Server_Wsdl"] . '?wsdl');
                         $result = $soap->ChargeMoney([
                             "userID" => (int) udetail_by_uid($_SESSION['uid'])->UserID,
                             "chargeID" => (string) $merchant_order->external_reference,
@@ -169,7 +197,6 @@ class InvoiceController extends BaseController
                 }
             }
         } else {
-            //Cupon ainda nao foi pago, sei la oq q deu nessa bagaça mas é so salvar no banco tbm kk
             $fatura->invoiceid = $_REQUEST["id"];
             $fatura->state = $merchant_order->payments[0]->status;
             $fatura->is_send = 0;
@@ -180,7 +207,73 @@ class InvoiceController extends BaseController
             return;
         }
 
-        echo 'tduo certu puraqis';
-        //dd($payment);
+        header("HTTP/1.1 200 OK");
+    }
+
+    public function notification_picpay()
+    {
+        $picpay = new PicPay(config('payment.picpay_token'), config('payment.picpay_seller_token'), config('payment.picpay_callback_url'));
+
+        // função que verifica a requisição
+        $notification = $picpay->notification();
+    
+        if(!$notification){
+           die('Erro ao salvar fatura');
+        }
+
+        //picpay notification receive params
+        $status 	   	 = $notification->status != 'paid' ? $notification->status : 'approved';
+        $authorizationId = $notification->authorizationId;
+        $referenceId     = $notification->referenceId;
+
+        $invoice = new InvoiceModel();
+        $fatura = $invoice->find("reference = :ref", "ref={$referenceId}")->fetch();
+        $pinfo = (new Product())->findById($fatura->pid);
+        if ($status == 'paid') {
+            $fatura->invoiceid = $authorizationId;
+            $fatura->state = $status;
+            $user = (new User())->findById($fatura->uid);
+
+            if ($fatura->is_send != 1) {
+                $data = [
+                    $referenceId,
+                    $user->u_hash,
+                    $pinfo->ammount,
+                    1,
+                    'Mercado Pago',
+                    00.00,
+                    '10.1.0.4',
+                    udetail_by_uid($fatura->uid)->NickName
+                ];
+                if ((new Product())->createChargeMoney($data)) {
+                    $fatura->is_send = 1;
+                    if ($pinfo->IsReward) {
+                        (new Product())->SendRewardRecharge($_SESSION['uid'], $fatura->pid);
+                    }
+
+                    try {
+                        $soap = new SoapClient($_ENV["Server_Wsdl"] . '?wsdl');
+                        $result = $soap->ChargeMoney([
+                            "userID" => (int) udetail_by_uid($_SESSION['uid'])->UserID,
+                            "chargeID" => (string) $referenceId,
+                            "zoneId" => 1001
+
+                        ]);
+                    } catch (\Throwable $th) {
+                    }
+                }
+            }
+        } else {
+            $fatura->invoiceid = $authorizationId;
+            $fatura->state = $status;
+            $fatura->is_send = 0;
+        }
+
+        if (!$fatura->save()) {
+            echo 'erro ao salvar fatura';
+            return;
+        }
+
+        header("HTTP/1.1 200 OK");
     }
 }

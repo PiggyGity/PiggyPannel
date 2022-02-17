@@ -6,6 +6,7 @@ use App\Models\DbTankSchema;
 use App\Models\Invoice;
 use App\Models\Product;
 use App\Models\User;
+use App\Utils\PicPay;
 
 class PagesController extends BaseController
 {
@@ -20,7 +21,7 @@ class PagesController extends BaseController
 
         checkPayments($_SESSION['uid']);
     }
-
+    
     public function purchases_history()
     {
         echo $this->view->render('account/purchases_history', [
@@ -185,35 +186,5 @@ class PagesController extends BaseController
         echo $this->view->render('recharge', [
             "products" => (new Product())->find()->fetch(true)
         ]);
-    }
-
-    public function teste()
-    {
-        $product = new Product();
-        $product->SendRewardRecharge($_SESSION['uid'], 7);
-    }
-
-    public function teste_do()
-    {
-        if (is_array($_FILES)) {
-            if (is_uploaded_file($_FILES['userImage']['tmp_name'])) {
-                $sourcePath = $_FILES['userImage']['tmp_name'];
-                $targetPath = dirname(__DIR__, 2) . "/storage/uploads/profile/" . $_FILES['userImage']['name'];
-                if (move_uploaded_file($sourcePath, $targetPath)) {
-                    echo "<img class=\"image-preview\" src=\"$targetPath\" class=\"upload-preview\" />";
-                }
-            }
-        }
-    }
-
-    public function TesteDelete()
-    {
-        $schema = new DbTankSchema();
-
-        foreach ($schema->find()->fetch(true) as $db) {
-            echo "Truncate Table $db->TABLE_NAME" . PHP_EOL;
-        }
-
-        return;
     }
 }

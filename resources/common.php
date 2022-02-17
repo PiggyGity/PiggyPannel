@@ -21,7 +21,7 @@ function reduz_numero($n)
 
 function checkPayments($uid)
 {
-    if ($invoices = (new Invoice)->find("uid = :u AND state != :st", "u=$uid&st=approved")->fetch(true)) {
+    if ($invoices = (new Invoice())->find("uid = :u AND state != :st", "u=$uid&st=approved")->fetch(true)) {
         foreach ($invoices as $invoice) {
             checkPaymentByMp($invoice->reference);
         }
@@ -39,15 +39,15 @@ function checkPaymentByMp($reference, string $token = null)
         return;
     }
 
-    $invoice = new Invoice;
+    $invoice = new Invoice();
     $fatura = $invoice->find("reference = :ref", "ref=$reference")->fetch();
-    $pinfo = (new Product)->findById($fatura->pid);
+    $pinfo = (new Product())->findById($fatura->pid);
 
     if ($result->results[0]->status == "approved") {
         //Aqui foi pago e aprovado so salvar no banco e enviar os cupons external_reference
         $fatura->invoiceid = $result->results[0]->id;
         $fatura->state = $result->results[0]->status;
-        $user = (new User)->findById($_SESSION['uid']);
+        $user = (new User())->findById($_SESSION['uid']);
 
         if ($fatura->is_send != 1) {
             $data = [
@@ -58,18 +58,17 @@ function checkPaymentByMp($reference, string $token = null)
                 'Mercado Pago',
                 00.00,
                 '10.1.0.4',
-                udetail_by_uid($fatura->uid)->NickName 
+                udetail_by_uid($fatura->uid)->NickName
             ];
-            if ((new Product)->createChargeMoney($data)) {
-
+            if ((new Product())->createChargeMoney($data)) {
                 $fatura->is_send = 1;
 
                 if ($pinfo->IsReward) {
-                    (new Product)->SendRewardRecharge($fatura->uid, $fatura->pid);
+                    (new Product())->SendRewardRecharge($fatura->uid, $fatura->pid);
                 }
 
                 try {
-                    $soap = new SoapClient($_ENV["Server_Wsdl"].'?wsdl');
+                    $soap = new SoapClient($_ENV["Server_Wsdl"] . '?wsdl');
                     $result = $soap->ChargeMoney([
                         "userID" => intval(udetail_by_uid($fatura->uid)->UserID),
                         "chargeID" => (string) $reference,
@@ -79,7 +78,6 @@ function checkPaymentByMp($reference, string $token = null)
                 } catch (\Throwable $th) {
                     throw $th;
                 }
-
             }
         }
     } else {
@@ -97,17 +95,17 @@ function checkPaymentByMp($reference, string $token = null)
 
 function udata_by_username_in_game($user)
 {
-    return (new User)->find("u_hash = :u", "u=$user")->fetch();
+    return (new User())->find("u_hash = :u", "u=$user")->fetch();
 }
 
 function udetail_by_uid($id)
 {
-    return (new User)->GetUserDetail($id);
+    return (new User())->GetUserDetail($id);
 }
 
 function product_data(?int $id)
 {
-    return (new Product)->findById($id);
+    return (new Product())->findById($id);
 }
 
 function dateString($month)
@@ -164,7 +162,7 @@ function getImage($type, $filename)
 }
 
 
-function timeAgo($time_ago)
+function timeAgo(int $time_ago)
 {
     $cur_time     = time();
     $time_elapsed     = $cur_time - $time_ago;
@@ -180,7 +178,7 @@ function timeAgo($time_ago)
         return "$seconds segundos atrás";
     }
     //Minutes
-    else if ($minutes <= 60) {
+    elseif ($minutes <= 60) {
         if ($minutes == 1) {
             return "1 minuto atrás";
         } else {
@@ -188,7 +186,7 @@ function timeAgo($time_ago)
         }
     }
     //Hours
-    else if ($hours <= 24) {
+    elseif ($hours <= 24) {
         if ($hours == 1) {
             return "uma hora atrás";
         } else {
@@ -196,7 +194,7 @@ function timeAgo($time_ago)
         }
     }
     //Days
-    else if ($days <= 7) {
+    elseif ($days <= 7) {
         if ($days == 1) {
             return "hoje";
         } else {
@@ -204,7 +202,7 @@ function timeAgo($time_ago)
         }
     }
     //Weeks
-    else if ($weeks <= 4.3) {
+    elseif ($weeks <= 4.3) {
         if ($weeks == 1) {
             return "1 semana atrás";
         } else {
@@ -212,7 +210,7 @@ function timeAgo($time_ago)
         }
     }
     //Months
-    else if ($months <= 12) {
+    elseif ($months <= 12) {
         if ($months == 1) {
             return "1 mes atrás";
         } else {
@@ -234,7 +232,7 @@ function loadImageItem($id, ?bool $equip = false): string
     if (empty($id) || is_null($id)) {
         return false;
     }
-    if (!$data = (new Itens)->find("TemplateID = :id", "id={$id}")->fetch()) {
+    if (!$data = (new Itens())->find("TemplateID = :id", "id={$id}")->fetch()) {
         return false;
     }
 
@@ -306,7 +304,7 @@ function loadImageItem($id, ?bool $equip = false): string
 
 function web_config(string $key)
 {
-    $config = new Config;
+    $config = new Config();
 
     if (!$configs = $config->find()->fetch(true)) {
         return false;
@@ -320,8 +318,9 @@ function web_config(string $key)
 }
 function xml_attribute($object, $attribute)
 {
-    if (isset($object[$attribute]))
+    if (isset($object[$attribute])) {
         return (string) $object[$attribute];
+    }
 }
 function base_url(?string $path = null): string
 {

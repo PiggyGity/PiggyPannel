@@ -16,56 +16,31 @@ class InvoiceController extends BaseController
     {
         $pid = filter_var($data['pid'], FILTER_SANITIZE_FULL_SPECIAL_CHARS);
         $uid = $_SESSION['uid'];
+
         if (empty($pid) || !isset($pid)) {
             echo 'product_id not definied.';
             return;
         }
 
         $product = (new Product())->findById($pid);
-        $invoice = new InvoiceModel();
-        $ereference = "invoice-" . uniqid(rand(1111, 9999));
-        $inovice_data = $invoice->find("uid = :u AND pid = :p AND state = :st1", "u=$uid&p=$pid&st1=created")->fetch();
 
         if($data['type']){
-            $invoiceCurrent = $invoice->findById($inovice_data->id);
-            if($data['type'] == 'picpay'){
-                $redirect = ($this->create_picpay($pid, $ereference))->paymentUrl;
-                $invoiceCurrent->method = "picpay";
-                $invoiceCurrent->save();
+            if($data['type'] == 'picpay')
+            {
+                $redirect = ($this->create_picpay($pid))->paymentUrl;
             }
-            if($data['type'] == 'mercadopago'){
-                $redirect = ($this->create_mp($pid, $ereference))->init_point;
-                $invoiceCurrent->method = "mercado_pago";
-                $invoiceCurrent->save();
+            if($data['type'] == 'mercadopago')
+            {
+                $redirect = ($this->create_mp($pid))->init_point;
             }
             header('Location: '.$redirect);
             return;
         }
-
-        if ($inovice_data) {
-            $inovice_data->reference = $ereference;
-            $inovice_data->save();
-        } else {
-            $invoice->uid = $_SESSION['uid'];
-            $invoice->pid = $product->id;
-            $invoice->state = "created";
-            $invoice->method = "mercado_pago";
-            $invoice->value = number_format($product->value, 2);
-            $invoice->reference = $ereference;
-            $invoice->is_send = 0;
-
-            if (!$invoice->save()) {
-                echo "erro ao gerar fatura nova :( \n" . PHP_EOL;
-                dd($invoice);
-            }
-
-            $inovice_data = $invoice->find("uid = :u AND pid = :p AND state = :st1", "u=$uid&p=$pid&st1=created")->fetch();
-        }
        
         echo $this->view->render('invoice', [
-            "invoice_data" => $inovice_data,
-            "product_data" => (new Product())->findById($pid),
+            "product_data" => $product,
         ]);
+
         return;
     }
 
@@ -95,8 +70,33 @@ class InvoiceController extends BaseController
     {
     }
 
-    public function create_mp($pid, $reference)
+    protected function createInvoice($pid, string $method = 'desconhecido')
     {
+        $ereference = "invoice-" . uniqid(rand(1111, 9999));
+
+        $product = (new Product())->findById($pid);
+        $invoice = new InvoiceModel();
+
+        $invoice->uid = $_SESSION['uid'];
+        $invoice->pid = $product->id;
+        $invoice->state = "created";
+        $invoice->method = "mercado_pago";
+        $invoice->value = number_format($product->value, 2);
+        $invoice->reference = $ereference;
+        $invoice->is_send = 0;
+
+        if (!$invoice->save()) {
+            echo "erro ao gerar fatura nova :( \n" . PHP_EOL;
+            die();
+        }
+
+        return $invoice;
+    }
+
+    public function create_mp($pid)
+    {
+        $invoice = $this->createInvoice($pid, 'mercado_pago');
+       
         $product = (new Product())->findById($pid);
 
         MercadoPago\SDK::setAccessToken(config("payment.access_token"));
@@ -110,23 +110,27 @@ class InvoiceController extends BaseController
 
         $preference->items = [$item];
         $preference->notification_url = config('payment.back_url');
-        $preference->external_reference = $reference;
+        $preference->external_reference = $invoice->reference;
 
         $preference->save();
 
         return $preference;
     }
 
-    public function create_picpay($pid, $reference)
+    public function create_picpay($pid)
     {
+        $invoice = $this->createInvoice($pid, 'picpay');
+
         $product = (new Product())->findById($pid);
 
-        $picpay = new PicPay(config('payment.picpay_token'), config('payment.picpay_seller_token'), config('payment.picpay_callback_url'));
+        $picpay = new PicPay(config('payment.picpay_token'), config('payment.picpay_seller_token'));
 
         $item = new stdClass();
-        $item->ref = $reference;
+        $item->ref = $invoice->reference;
         $item->nome = $product->name;
         $item->valor = number_format($product->value, 2);
+        $item->urlCallBack = base_url('recharge/picpay/notification'); #notification
+        $item->urlReturn = base_url('fatura/' . $invoice->id); #invoice page
 
         $buyer = new stdClass();
         $buyer->nome = $this->udata->first_name;
@@ -229,7 +233,7 @@ class InvoiceController extends BaseController
 
     public function notification_picpay()
     {
-        $picpay = new PicPay(config('payment.picpay_token'), config('payment.picpay_seller_token'), config('payment.picpay_callback_url'));
+        $picpay = new PicPay(config('payment.picpay_token'), config('payment.picpay_seller_token'));
 
         // função que verifica a requisição
         $notification = $picpay->notification();

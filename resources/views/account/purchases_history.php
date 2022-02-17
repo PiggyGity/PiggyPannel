@@ -287,9 +287,10 @@
                                             </td>
                                             <?= ($invoice->is_send == 1) ? "<td class=\"text-success\">Cupons enviados</td>" : "<td class=\"text-danger\">Cupons não enviados</td>"; ?>
                                             <?php if ($invoice->is_send != 1) : ?>
+                                                <!--
                                                 <td class="text-center">
                                                     <a href="<?= base_url("fatura/$invoice->pid") ?>" class="btn btn-light btn-sm btn-active-light-primary" href="">Pagar</a>
-                                                </td>
+                                                </td> -->
                                             <?php endif; ?>
                                         </tr>
                                 <?php endforeach;

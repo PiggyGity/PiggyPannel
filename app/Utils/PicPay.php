@@ -12,20 +12,18 @@ class PicPay
 
     private $sellerToken;
 
-    public function __construct(string $token, string $sellerToken, string $urlCallBack)
+    public function __construct(string $token, string $sellerToken)
     {
-        $this->urlReturn = base_url('minha-conta/compras/historico');
         $this->token = $token;
         $this->sellerToken = $sellerToken;
-        $this->urlCallBack = $urlCallBack;
     }
 
     public function request($produto, $cliente)
     {
-          $data = [
+        $data = [  
             'referenceId' => $produto->ref,
-            'callbackUrl' => $this->urlCallBack,
-            'returnUrl'   => $this->urlReturn,
+            'callbackUrl' => $produto->urlCallBack,
+            'returnUrl'   => $produto->urlReturn,
             'value'       => $produto->valor,
             'buyer'       => [
                 'firstName' => $cliente->nome,
@@ -34,18 +32,19 @@ class PicPay
                 'email'     => $cliente->email,
                 'phone'     => $cliente->telefone
             ]
-          ];
+        ];
 
-          $ch = curl_init('https://appws.picpay.com/ecommerce/public/payments');
-          curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-          curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($data));
-          curl_setopt($ch, CURLOPT_HTTPHEADER, ['x-picpay-token: ' . $this->token]);
+        $ch = curl_init('https://appws.picpay.com/ecommerce/public/payments');
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($data));
+        curl_setopt($ch, CURLOPT_HTTPHEADER, ['x-picpay-token: ' . $this->token]);
 
-          $res = curl_exec($ch);
-          curl_close($ch);
-          $return = json_decode($res);
-
-          return $return;
+        $res = curl_exec($ch);
+        curl_close($ch);
+        
+        $return = json_decode($res);
+        
+        return $return;
     }
 
     public function notification()

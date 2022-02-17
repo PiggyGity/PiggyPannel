@@ -1,0 +1,75 @@
+<?php
+
+namespace App\Utils;
+
+class PicPay
+{
+    private $urlCallBack;
+
+    private $urlReturn;
+
+    private $token;
+
+    private $sellerToken;
+
+    public function __construct(string $token, string $sellerToken, string $urlCallBack)
+    {
+        $this->urlReturn = base_url('minha-conta/compras/historico');
+        $this->token = $token;
+        $this->sellerToken = $sellerToken;
+        $this->urlCallBack = $urlCallBack;
+    }
+
+    public function request($produto, $cliente)
+    {
+          $data = [
+            'referenceId' => $produto->ref,
+            'callbackUrl' => $this->urlCallBack,
+            'returnUrl'   => $this->urlReturn,
+            'value'       => $produto->valor,
+            'buyer'       => [
+                'firstName' => $cliente->nome,
+                'lastName'  => $cliente->sobreNome,
+                'document'  => $cliente->cpf,
+                'email'     => $cliente->email,
+                'phone'     => $cliente->telefone
+            ]
+          ];
+
+          $ch = curl_init('https://appws.picpay.com/ecommerce/public/payments');
+          curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+          curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($data));
+          curl_setopt($ch, CURLOPT_HTTPHEADER, ['x-picpay-token: ' . $this->token]);
+
+          $res = curl_exec($ch);
+          curl_close($ch);
+          $return = json_decode($res);
+
+          return $return;
+    }
+
+    public function notification()
+    {
+        $content = trim(file_get_contents("php://input"));
+        $payBody = json_decode($content);
+
+        if (!isset($payBody->authorizationId)) {
+            return false;
+        }
+
+        $referenceId = $payBody->referenceId;
+
+        $ch = curl_init('https://appws.picpay.com/ecommerce/public/payments/' . $referenceId . '/status');
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, array('x-picpay-token: ' . $this->token));
+
+        $res = curl_exec($ch);
+        curl_close($ch);
+        $notification = json_decode($res);
+
+        $notification->referenceId     = $payBody->referenceId;
+        $notification->authorizationId = $payBody->authorizationId;
+
+        return $notification;
+    }
+}

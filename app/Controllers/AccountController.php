@@ -26,7 +26,7 @@ class AccountController extends BaseController
         }
         //batataassada12
 
-        $user = (new User)->findById($_SESSION['uid']);
+        $user = (new User())->findById($_SESSION['uid']);
 
         if (!password_verify($this->request->currentpassword, $user->passwd)) {
             echo $this->response("response", [
@@ -81,7 +81,7 @@ class AccountController extends BaseController
             return;
         }
         //batataassada12
-        if ((new User)->find("email = :e", "e={$this->request->emailaddress}")->fetch()) {
+        if ((new User())->find("email = :e", "e={$this->request->emailaddress}")->fetch()) {
             echo $this->response("response", [
                 'state' => false,
                 'msg' => 'Este email ja está em uso.'
@@ -89,7 +89,7 @@ class AccountController extends BaseController
             return;
         }
 
-        $user = (new User)->findById($_SESSION['uid']);
+        $user = (new User())->findById($_SESSION['uid']);
 
         if (!password_verify($this->request->confirmemailpassword, $user->passwd)) {
             echo $this->response("response", [
@@ -128,7 +128,7 @@ class AccountController extends BaseController
             return;
         }
 
-        $user = (new User)->findById($_SESSION['uid']);
+        $user = (new User())->findById($_SESSION['uid']);
         $user->first_name = $this->request->fname;
         $user->last_name = $this->request->lname;
 
@@ -165,7 +165,7 @@ class AccountController extends BaseController
             return;
         }
 
-        $user = new User;
+        $user = new User();
 
         if (!$user->check('nick', $this->request->newnick)) {
             echo $this->response("response", [
@@ -211,7 +211,7 @@ class AccountController extends BaseController
         $request = filter_var_array($request, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
         $request = (object) $request;
 
-        $user = (new User)->findById($_SESSION['uid']);
+        $user = (new User())->findById($_SESSION['uid']);
         if (isset($request->remove_profile) && $request->remove_profile) {
             $user->photo = 'default.jpg';
             $user->save();
@@ -219,9 +219,8 @@ class AccountController extends BaseController
         }
 
         if (is_array($_FILES)) {
-        
             $type = $_FILES["avatar"]["type"];
-           
+
             if (!$type == "image/jpeg" || !$type == "image/png" ||  !$type == "image/gif" ||  !$type == "image/jpg") {
                 echo $this->response("response", [
                     'state' => false,

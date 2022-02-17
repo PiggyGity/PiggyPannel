@@ -1,4 +1,5 @@
 <?php
+
 return [
 
     'url' => ($_SERVER['HTTPS']=="on"?"https://":"http://") . $_SERVER['HTTP_HOST'],
@@ -13,7 +14,7 @@ return [
 
     'domain' => $_SERVER['HTTP_HOST'],
 
-	'resource'=> $_ENV['ResourceLink'],
+    'resource' => $_ENV['ResourceLink'],
 
     'flash'  => $_ENV['FlashLink'],
 

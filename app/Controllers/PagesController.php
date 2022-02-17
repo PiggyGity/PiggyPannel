@@ -24,8 +24,9 @@ class PagesController extends BaseController
     
     public function purchases_history()
     {
+        $date = date('Y-m-d H:i:s',(strtotime ('-3 day', strtotime(date('Y-m-d H:i:s')))));
         echo $this->view->render('account/purchases_history', [
-            "invoice_list" => (new Invoice())->find("uid = :id", "id={$_SESSION['uid']}")->fetch(true)
+            "invoice_list" => (new Invoice())->find("uid = :id AND [state] = :state OR created_at >= :date", "id={$_SESSION['uid']}&state=approved&date={$date}")->fetch(true)
         ]);
         return;
     }

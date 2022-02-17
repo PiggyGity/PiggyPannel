@@ -40,7 +40,6 @@ $router->post('/recharge/picpay/notification', 'InvoiceController:notification_p
 $router->get('/fatura/{pid}', 'InvoiceController:create', 'web.invoice.create');
 $router->get('/fatura/create/{pid}/{type}', 'InvoiceController:create', 'web.invoice.create.custom');
 $router->get('/fatura/detalhes/{id}', 'InvoiceController:detail', 'web.invoice.detail');
-$router->get('/health/state', 'BaseController:state_check', 'web.check.state');
 $router->get('/whoops/manutencao', 'PagesController:maintenance', 'web.maintenance');
 
 /**

@@ -202,13 +202,13 @@ class InvoiceController extends BaseController
                 if ((new Product())->createChargeMoney($data)) {
                     $fatura->is_send = 1;
                     if ($pinfo->IsReward) {
-                        (new Product())->SendRewardRecharge($_SESSION['uid'], $fatura->pid);
+                        (new Product())->SendRewardRecharge($fatura->uid, $fatura->pid);
                     }
 
                     try {
                         $soap = new SoapClient($_ENV["Server_Wsdl"] . '?wsdl');
                         $result = $soap->ChargeMoney([
-                            "userID" => (int) udetail_by_uid($_SESSION['uid'])->UserID,
+                            "userID" => (int) udetail_by_uid($fatura->uid)->UserID,
                             "chargeID" => (string) $merchant_order->external_reference,
                             "zoneId" => 1001
 
@@ -250,7 +250,7 @@ class InvoiceController extends BaseController
         $invoice = new InvoiceModel();
         $fatura = $invoice->find("reference = :ref", "ref={$referenceId}")->fetch();
         $pinfo = (new Product())->findById($fatura->pid);
-        if ($status == 'paid') {
+        if ($status == 'approved') {
             $fatura->invoiceid = $authorizationId;
             $fatura->state = $status;
             $user = (new User())->findById($fatura->uid);
@@ -269,13 +269,13 @@ class InvoiceController extends BaseController
                 if ((new Product())->createChargeMoney($data)) {
                     $fatura->is_send = 1;
                     if ($pinfo->IsReward) {
-                        (new Product())->SendRewardRecharge($_SESSION['uid'], $fatura->pid);
+                        (new Product())->SendRewardRecharge($fatura->uid, $fatura->pid);
                     }
 
                     try {
                         $soap = new SoapClient($_ENV["Server_Wsdl"] . '?wsdl');
                         $result = $soap->ChargeMoney([
-                            "userID" => (int) udetail_by_uid($_SESSION['uid'])->UserID,
+                            "userID" => (int) udetail_by_uid($fatura->uid)->UserID,
                             "chargeID" => (string) $referenceId,
                             "zoneId" => 1001
 

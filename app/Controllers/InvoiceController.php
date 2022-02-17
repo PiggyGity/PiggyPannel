@@ -37,8 +37,7 @@ class InvoiceController extends BaseController
                 $redirect = ($this->create_mp($pid, $ereference))->init_point;
                 $invoiceCurrent->method = "mercado_pago";
                 $invoiceCurrent->save();
-            }  
-            dd($invoiceCurrent->fetch());
+            }
             header('Location: '.$redirect);
             return;
         }

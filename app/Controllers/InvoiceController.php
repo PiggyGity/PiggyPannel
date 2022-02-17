@@ -24,8 +24,26 @@ class InvoiceController extends BaseController
         $product = (new Product())->findById($pid);
         $invoice = new InvoiceModel();
         $ereference = "invoice-" . uniqid(rand(1111, 9999));
+        $inovice_data = $invoice->find("uid = :u AND pid = :p AND state = :st1", "u=$uid&p=$pid&st1=created")->fetch();
 
-        if ($inovice_data = $invoice->find("uid = :u AND pid = :p AND state = :st1", "u=$uid&p=$pid&st1=created")->fetch()) {
+        if($data['type']){
+            $invoiceCurrent = $invoice->findById($inovice_data->id);
+            if($data['type'] == 'picpay'){
+                $redirect = ($this->create_picpay($pid, $ereference))->paymentUrl;
+                $invoiceCurrent->method = "picpay";
+                $invoiceCurrent->save();
+            }
+            if($data['type'] == 'mercadopago'){
+                $redirect = ($this->create_mp($pid, $ereference))->init_point;
+                $invoiceCurrent->method = "mercado_pago";
+                $invoiceCurrent->save();
+            }  
+            dd($invoiceCurrent->fetch());
+            header('Location: '.$redirect);
+            return;
+        }
+
+        if ($inovice_data) {
             $inovice_data->reference = $ereference;
             $inovice_data->save();
         } else {
@@ -44,12 +62,10 @@ class InvoiceController extends BaseController
 
             $inovice_data = $invoice->find("uid = :u AND pid = :p AND state = :st1", "u=$uid&p=$pid&st1=created")->fetch();
         }
-
+       
         echo $this->view->render('invoice', [
             "invoice_data" => $inovice_data,
             "product_data" => (new Product())->findById($pid),
-            "mp_data" => $this->create_mp($pid, $ereference),
-            "picpay_data" => $this->create_picpay($pid, $ereference),
         ]);
         return;
     }

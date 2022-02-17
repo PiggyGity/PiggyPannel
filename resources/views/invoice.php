@@ -302,9 +302,9 @@
                             </div>
                             <!--end::Item-->
 
-                            <div class="mb-6">
-                            <a href="<?= $mp_data->init_point ?>" class="btn btn-sm btn-primary">Pagar com mercadopago</a>
-                                <a href="<?= $picpay_data->paymentUrl ?>" class="btn btn-sm btn-success">Pagar com picpay</a>
+                            <div class="mb-6"> 
+                            <a href="<?= base_url("fatura/create/{$invoice_data->pid}/mercadopago") ?>" class="btn btn-sm btn-primary">Pagar com mercadopago</a>
+                                <a href="<?= base_url("fatura/create/{$invoice_data->pid}/picpay") ?>" class="btn btn-sm btn-success">Pagar com picpay</a>
                             </div>
                             <!--begin::Item
                             <div class="mb-6">

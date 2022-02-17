@@ -38,10 +38,10 @@ $router->post('/payment/notifications', 'InvoiceController:notifications', 'web.
 $router->get('/recharge/picpay/notification', 'InvoiceController:notification_picpay', 'web.invoice.notification.picpay');
 $router->post('/recharge/picpay/notification', 'InvoiceController:notification_picpay', 'web.invoice.notification.picpay');
 $router->get('/fatura/{pid}', 'InvoiceController:create', 'web.invoice.create');
+$router->get('/fatura/create/{pid}/{type}', 'InvoiceController:create', 'web.invoice.create.custom');
 $router->get('/fatura/detalhes/{id}', 'InvoiceController:detail', 'web.invoice.detail');
 $router->get('/health/state', 'BaseController:state_check', 'web.check.state');
 $router->get('/whoops/manutencao', 'PagesController:maintenance', 'web.maintenance');
-$router->get('/teste/picpay', 'PagesController:testePic', 'web.testepic');
 
 /**
  * ADMIN ROUTES

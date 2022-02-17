@@ -11,6 +11,7 @@ class PagesController extends BaseController
 {
     public function __construct($router)
     {
+
         parent::__construct($router);
         if (!isset($_SESSION['uid'])) {
             $this->router->redirect('web.landing');
@@ -108,17 +109,33 @@ class PagesController extends BaseController
 
     protected function getHashUser($user, $key)
     {
-        $ch = curl_init(config('app.Request') . 'CreateLoginMec.aspx?content=' . urlencode($user . '|' . $key));
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-        $result = curl_exec($ch);
+        $cookie = tempnam("/tmp", "CURLCOOKIE");
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_USERAGENT, "Mozilla/5.0 (Windows; U; Windows NT 5.1; rv:1.7.3) Gecko/20041001 Firefox/0.10.1");
+        curl_setopt($ch, CURLOPT_URL, config('app.Request') . 'CreateLoginMec.aspx?content=' . urlencode($user . '|' . $key));
+        curl_setopt($ch, CURLOPT_COOKIEJAR, $cookie);
+        curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
+        curl_setopt($ch, CURLOPT_ENCODING, "");
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_AUTOREFERER, true);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);    # required for https urls
+        curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 60);
+        curl_setopt($ch, CURLOPT_TIMEOUT, 60);
+        curl_setopt($ch, CURLOPT_MAXREDIRS, 10);
+        $content = curl_exec($ch);
+        $response = curl_getinfo($ch);
         curl_close($ch);
 
-        if ($result == "0" || $result == '-1900') {
+        if ($response['http_code'] != 200) {
+            return null;
+        }
+
+        if ($content == "0" || $content == '-1900') {
             $this->router->redirect('web.landing');
             return;
         }
 
-        return $result;
+        return $content;
     }
 
     public function playgame(): void
@@ -140,6 +157,9 @@ class PagesController extends BaseController
         $key = md5($udata->p_hash);
 
         $hash =  $this->getHashUser($user, $key);
+
+        if($hash == null)
+         $this->router->redirect('web.maintenance');;
 
         echo $this->view->render('playgame', [
             "uname" => $user,

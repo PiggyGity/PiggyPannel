@@ -1,7 +1,7 @@
 <?php
 return [
 
-    'url' => 'http://' . $_SERVER['HTTP_HOST'],
+    'url' => ($_SERVER['HTTPS']=="on"?"https://":"http://") . $_SERVER['HTTP_HOST'],
 
     'debug' => true,
 

@@ -467,60 +467,7 @@
                 </div>
                 <!--end::Mixed Widget 1-->
             </div>
-            <!--end::Col-->
-            <div class="col-xxl-4">
-                <div class="card card-xxl-stretch">
-                    <div class="card-header align-items-center border-0 mt-4">
-                        <h3 class="card-title align-items-start flex-column">
-                            <span class="fw-bolder mb-2 text-dark">Atividades do servidor</span>
-                            <span class="text-muted fw-bold fs-7">Em breve</span>
-                        </h3>
-                    </div>
-                    <div class="card-body pt-5">
-                        <div class="timeline-label">
-                            <div class="timeline-item">
-                                <div class="timeline-label fw-bolder text-gray-800 fs-6">20:00</div>
-                                <div class="timeline-badge">
-                                    <i class="fa fa-genderless text-warning fs-1"></i>
-                                </div>
-                                <div class="fw-mormal timeline-content text-muted ps-3">Abertura de novo servidor</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-xxl-4">
-                <div class="card card-xxl-stretch-50 mb-5 mb-xl-8">
-                    <div class="card-body d-flex flex-column p-0">
-                        <div class="flex-grow-1 card-p pb-0">
-                            <div class="d-flex flex-stack flex-wrap">
-                                <div class="me-2">
-                                    <a href="#" class="text-dark text-hover-primary fw-bolder fs-3">Visitas</a>
-                                    <div class="text-muted fs-7 fw-bold">Acessos de jogadores
-                                    </div>
-                                </div>
-                                <div class="fw-bolder fs-3 text-primary"><?= $visit_count ?></div>
-                            </div>
-                        </div>
-                        <div class="mixed-widget-7-chart card-rounded-bottom" data-kt-chart-color="primary" style="height: 150px"></div>
-                    </div>
-                </div>
-                <div class="card card-xxl-stretch-50 mb-5 mb-xl-8">
-                    <div class="card-body p-0 d-flex justify-content-between flex-column overflow-hidden">
-                        <div class="d-flex flex-stack flex-wrap flex-grow-1 px-9 pt-9 pb-3">
-                            <div class="me-2">
-                                <span class="fw-bolder text-gray-800 d-block fs-3">Jogadores</span>
-                                <span class="text-gray-400 fw-bold">Novos jogadores</span>
-                            </div>
-                            <div class="fw-bolder fs-3 text-primary"><?= $users_count ?></div>
-                        </div>
-                        <div id="player_chart" data-kt-color="primary" style="height: 175px"></div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="row gy-5 gx-xl-8">
-            <div class="col-xl-12">
+            <div class="col-xxl-8 col-md-12">
                 <div class="card card-xxl-stretch mb-5 mb-xl-8">
                     <div class="card-header border-0 pt-5">
                         <h3 class="card-title align-items-start flex-column">
@@ -606,6 +553,7 @@
                     </div>
                 </div>
             </div>
+
         </div>
     </div>
 </div>

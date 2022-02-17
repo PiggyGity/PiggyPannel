@@ -268,24 +268,6 @@
                                         <span class="menu-icon">
 
                                             <span class="svg-icon svg-icon-2">
-                                                <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
-                                                    <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-                                                        <rect x="0" y="0" width="24" height="24" />
-                                                        <path d="M5,3 L6,3 C6.55228475,3 7,3.44771525 7,4 L7,20 C7,20.5522847 6.55228475,21 6,21 L5,21 C4.44771525,21 4,20.5522847 4,20 L4,4 C4,3.44771525 4.44771525,3 5,3 Z M10,3 L11,3 C11.5522847,3 12,3.44771525 12,4 L12,20 C12,20.5522847 11.5522847,21 11,21 L10,21 C9.44771525,21 9,20.5522847 9,20 L9,4 C9,3.44771525 9.44771525,3 10,3 Z" fill="#000000" />
-                                                        <rect fill="#000000" opacity="0.3" transform="translate(17.825568, 11.945519) rotate(-19.000000) translate(-17.825568, -11.945519)" x="16.3255682" y="2.94551858" width="3" height="18" rx="1" />
-                                                    </g>
-                                                </svg>
-                                            </span>
-
-                                        </span>
-                                        <span class="menu-title">Pacotes vip</span>
-                                    </a>
-                                </div>
-                                <div class="menu-item">
-                                    <a class="menu-link py-3" href="javascript:;" title="Em breve" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-dismiss="click" data-bs-placement="right">
-                                        <span class="menu-icon">
-
-                                            <span class="svg-icon svg-icon-2">
                                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
                                                     <path opacity="0.25" d="M2 6.5C2 4.01472 4.01472 2 6.5 2H17.5C19.9853 2 22 4.01472 22 6.5V6.5C22 8.98528 19.9853 11 17.5 11H6.5C4.01472 11 2 8.98528 2 6.5V6.5Z" fill="#12131A" />
                                                     <path d="M20 6.5C20 7.88071 18.8807 9 17.5 9C16.1193 9 15 7.88071 15 6.5C15 5.11929 16.1193 4 17.5 4C18.8807 4 20 5.11929 20 6.5Z" fill="#12131A" />
@@ -370,9 +352,9 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="menu-item px-5">
+                            <!-- <div class="menu-item px-5">
                                 <a href="javascript:;" class="menu-link px-5">WebShop</a>
-                            </div>
+                            </div> -->
                             <div class="separator my-2"></div>
                             <div class="menu-item px-5" data-kt-menu-trigger="hover" data-kt-menu-placement="left-start" data-kt-menu-flip="bottom">
                                 <a href="#" class="menu-link px-5">

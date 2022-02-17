@@ -47,6 +47,15 @@ class AdminController extends BaseController
             return;
         }
 
+        try {
+            $soap = new SoapClient($_ENV["Server_Wsdl"] . '?wsdl');
+            $result = $soap->KitoffUser([
+                "playerID" => $this->request->uid,
+                "msg" => ''
+            ]);
+        } catch (\Throwable $th) {
+        }
+
         echo $this->response('response', [
             'state' => true,
             'msg' => 'Usuario banido com sucesso.'

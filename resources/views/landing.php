@@ -54,7 +54,7 @@
                                  <a class="menu-link nav-link py-3 px-4 px-xxl-6" href="#team" data-kt-scroll-toggle="true" data-kt-drawer-dismiss="true">Equipe</a>
                               </div>
                               <div class="menu-item">
-                                 <a class="menu-link nav-link py-3 px-4 px-xxl-6" href="<?= $r->route('web.simple_auth');?>">Entrar pelo maxthon</a> 
+                                 <a class="menu-link nav-link py-3 px-4 px-xxl-6" href="<?= $r->route('web.simple_auth');?>">Lobby</a> 
                               </div>
                            </div>
                         </div>
@@ -335,9 +335,9 @@
                                              </div>
                                           </div>
                                        </div>
-                                       <div class="menu-item px-5">
+                                       <!-- <div class="menu-item px-5">
                                           <a href="javascript:;" class="menu-link px-5">WebShop</a>
-                                       </div>
+                                       </div> -->
                                        <div class="separator my-2"></div>
                                        <div class="menu-item px-5" data-kt-menu-trigger="hover" data-kt-menu-placement="left-start" data-kt-menu-flip="bottom">
                                           <a href="#" class="menu-link px-5">
@@ -439,7 +439,7 @@
             <div class="d-flex flex-column flex-center w-100 min-h-350px min-h-lg-500px px-9">
                <div class="text-center mb-5 mb-lg-10 py-10 py-lg-20">
                   <h1 class="text-white lh-base fw-bolder fs-2x fs-lg-3x mb-15">Junte-se ao melhor
-                     <br />ddtank pirata na versão 10.9
+                     <br />DDtank privado na versão 4.1
                   </h1>
                   <div class="d-flex flex-center">
                      <a href="<?= base_url('DDTANK_Mini_Client.exe')?>" class="download-client-btn"></a>
@@ -694,7 +694,7 @@
       </div>
    </div>
    </div>
-   
+   <?php if(!isset($_SESSION['uid'])): ?>
    <div class="modal show" id="newsModal" tabindex="-1" aria-hidden="true">
       <div class="modal-dialog modal-dialog-centered mw-900px">
          <div class="modal-content">
@@ -717,6 +717,7 @@
          </div>
       </div>
    </div>
+   <?php endif; ?>
    <script src="<?= base_url() ?>/assets/plugins/global/plugins.bundle.js"></script>
    <script src="<?= base_url() ?>/assets/js/scripts.bundle.js"></script>
    <script src="<?= base_url() ?>/assets/plugins/custom/fslightbox/fslightbox.bundle.js"></script>
@@ -889,11 +890,13 @@
          });
       });
    </script>
+    <?php if(!isset($_SESSION['uid'])): ?>
    <script type="text/javascript">
       $(window).on('load', function() {
          $('#newsModal').modal('show');
       });
    </script>
+   <?php endif; ?>
    <noscript>
       <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-5FS8GGP" height="0" width="0" style="display:none;visibility:hidden"></iframe>
    </noscript>

@@ -65,53 +65,38 @@
                     <!--begin::Row-->
                     <div class="row g-10">
 
-                        <?php if($products): foreach ($products as $item) : ?>
-                            <!--begin::Col-->
-                            <div class="col-xl-4">
-                                <div class="d-flex h-100 align-items-center">
-                                    <!--begin::Option-->
-                                    <div class="w-100 d-flex flex-column flex-center rounded-3 bg-light bg-opacity-75 py-15 px-10">
-                                        <!--begin::Heading-->
-                                        <div class="mb-7 text-center">
-                                            <!--begin::Title-->
-                                            <h1 class="text-dark mb-5 fw-boldest"><?= $item->name ?></h1>
-                                            <!--end::Title-->
-                                            <!--begin::Description-->
-                                            <div class="text-gray-400 fw-bold mb-5"><?= $item->description ?></div>
-                                            <!--end::Description-->
-                                            <!--begin::Price-->
-                                            <div class="text-center">
-                                                <span class="mb-2 text-primary">R$</span>
-                                                <span class="fs-3x fw-bolder text-primary"><?= number_format($item->value, 2) ?></span>
-                                                <span class="fs-7 fw-bold opacity-50">/
-                                                    <span data-kt-element="period">Qntd. 1</span></span>
+                        <?php if ($products) : foreach ($products as $item) : ?>
+                                <!--begin::Col-->
+                                <div class="col-xl-4">
+                                    <div class="d-flex h-100 align-items-center">
+                                        <!--begin::Option-->
+                                        <div class="w-100 d-flex flex-column flex-center rounded-3 bg-light bg-opacity-75 py-15 px-10">
+                                            <!--begin::Heading-->
+                                            <div class="mb-7 text-center">
+                                                <!--begin::Title-->
+                                                <h1 class="text-dark mb-5 fw-boldest"><?= $item->ammount ?> Cupons.</h1>
+                                                <!--end::Title-->
+                                                <!--begin::Price-->
+                                                <div class="text-center">
+                                                    <span class="mb-2 text-primary">R$</span>
+                                                    <span class="fs-3x fw-bolder text-primary"><?= number_format($item->value, 2) ?></span>
+                                                    <span class="fs-7 fw-bold opacity-50">/
+                                                        <span data-kt-element="period">Qntd. 1</span></span>
+                                                </div>
+                                                <!--end::Price-->
                                             </div>
-                                            <!--end::Price-->
+                                            <!--end::Heading-->
+                                            
+                                            <!--begin::Select-->
+                                            <a href="<?= base_url("fatura/$item->id") ?>" class="btn btn-sm btn-primary" style="width:100%;">Comprar</a>
+                                            <!--end::Select-->
                                         </div>
-                                        <!--end::Heading-->
-                                        <!--begin::Features-->
-                                        <div class="w-100 mb-10">
-                                            <div class="d-flex align-items-center mb-5">
-                                                <span class="fw-bold fs-6 text-gray-800 flex-grow-1 pe-3"><?= $item->ammount ?> Cupons.</span>
-                                                <!--begin::Svg Icon | path: icons/duotone/Code/Done-circle.svg-->
-                                                <span class="svg-icon svg-icon-1 svg-icon-success">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
-                                                        <circle fill="#000000" opacity="0.3" cx="12" cy="12" r="10" />
-                                                        <path d="M16.7689447,7.81768175 C17.1457787,7.41393107 17.7785676,7.39211077 18.1823183,7.76894473 C18.5860689,8.1457787 18.6078892,8.77856757 18.2310553,9.18231825 L11.2310553,16.6823183 C10.8654446,17.0740439 10.2560456,17.107974 9.84920863,16.7592566 L6.34920863,13.7592566 C5.92988278,13.3998345 5.88132125,12.7685345 6.2407434,12.3492086 C6.60016555,11.9298828 7.23146553,11.8813212 7.65079137,12.2407434 L10.4229928,14.616916 L16.7689447,7.81768175 Z" fill="#000000" fill-rule="nonzero" />
-                                                    </svg>
-                                                </span>
-                                            </div>
-                                        </div>
-                                        <!--end::Features-->
-                                        <!--begin::Select-->
-                                        <a href="<?= base_url("fatura/$item->id") ?>" class="btn btn-sm btn-primary" style="width:100%;">Comprar</a>
-                                        <!--end::Select-->
+                                        <!--end::Option-->
                                     </div>
-                                    <!--end::Option-->
                                 </div>
-                            </div>
-                            <!--end::Col-->
-                        <?php endforeach; endif; ?>
+                                <!--end::Col-->
+                        <?php endforeach;
+                        endif; ?>
                     </div>
                     <!--end::Row-->
                 </div>

@@ -155,7 +155,6 @@ class InvoiceController extends BaseController
         switch ($_REQUEST["topic"]) {
             case "payment":
                 $payment = MercadoPago\Payment::find_by_id($_REQUEST["id"]);
-                // Get the payment and the corresponding merchant_order reported by the IPN.
                 $merchant_order = MercadoPago\MerchantOrder::find_by_id($payment->order->id);
                 break;
             case "merchant_order":
@@ -174,7 +173,10 @@ class InvoiceController extends BaseController
         }
 
         $invoice = new InvoiceModel();
-        $fatura = $invoice->find("reference = :ref", "ref=$merchant_order->external_reference")->fetch();
+        if(!$fatura = $invoice->find("reference = :ref", "ref={$merchant_order->external_reference}")->fetch()){
+            die('invoice not found');
+        }
+
         $pinfo = (new Product())->findById($fatura->pid);
         if ($paid_amount >= $merchant_order->total_amount) {
             //Aqui foi pago e aprovado so salvar no banco e enviar os cupons external_reference

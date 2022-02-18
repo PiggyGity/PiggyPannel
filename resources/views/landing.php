@@ -442,7 +442,7 @@
                      <br />DDtank privado na versão 4.1
                   </h1>
                   <div class="d-flex flex-center">
-                     <a href="<?= base_url('DDTANK_Mini_Client.exe')?>" class="download-client-btn"></a>
+                     <a href="<?= base_url('laucher.exe')?>" class="download-client-btn"></a>
                      <a href="<?= isset($_SESSION['uid']) ? base_url('lobby') : 'javascript:;' ?>" <?= isset($_SESSION['uid']) ? "" : 'data-bs-toggle="modal" data-bs-target="#modal_login_app"' ?> class="playgame-btn"></a>
                   </div>
                </div>

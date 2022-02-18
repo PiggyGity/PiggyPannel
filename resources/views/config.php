@@ -63,7 +63,7 @@
     <MINLEVELDUPLICATE value="8" />
     <!-- DISABLE_TASK_ID 为禁用的任务的ID，如有多个，请用逗号隔开 for example : 1002,1003,1004,新浪需要屏蔽的任务378,379,380,381,604-->
     <DISABLE_TASK_ID value="545,382,383,384,385" />
-    <CLIENT_DOWNLOAD value="<?= base_url() ?>/client.rar" />
+    <CLIENT_DOWNLOAD value="<?= base_url() ?>/laucher.exe" />
     <STATISTICS enable="true" />
     <!-- 360游戏统计，包括登陆，进入战斗等-->
     <EXTERNAL_INTERFACE_360 value="http://s.1360.cn/game_event" enable="false" />

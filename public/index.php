@@ -52,6 +52,9 @@ $router->post('/usuario/banir', 'AdminController:user_ban_in_game', 'admin.user.
 $router->post('/usuario/desbanir', 'AdminController:user_unban_in_game', 'admin.user.unban');
 $router->post('/item/data', 'AdminController:item_data', 'admin.item.data');
 $router->post('/item/user/enviar', 'AdminController:sendItemToPlayer', 'admin.item.send.byuser');
+$router->get('/recarga/enviar', 'AdminController:send_recharge', 'admin.send.recharge');
+$router->post('/recarga/enviar', 'AdminController:sendRechargeToPlayer', 'admin.recharge.send.byuser');
+
 
 
 /**

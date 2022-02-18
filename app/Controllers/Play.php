@@ -40,7 +40,8 @@ class Play extends BaseController
             $this->router->redirect('web.landing');
         }
         
-        if ($_ENV['maintenance'] == 'true') {
+        if ($_ENV['maintenance'] == 'true' && $this->udata->type != 7) 
+        {
             $this->router->redirect('web.maintenance');
             return;
         }

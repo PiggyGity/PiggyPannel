@@ -3,6 +3,7 @@
 namespace App\Controllers;
 
 use App\Models\Itens;
+use App\Models\Product;
 use App\Models\User;
 use Libraries\DataLayer\Connect;
 use PDO;
@@ -98,10 +99,74 @@ class AdminController extends BaseController
         return;
     }
 
+    public function send_recharge()
+    {
+        echo $this->view->render('admin/recharge', [
+            "users_list" => (new User)->getSysDetail()
+        ]);
+
+        return;
+    }
+
+    public function sendRechargeToPlayer()
+    {
+        if(empty($this->request->UserID) or empty($this->request->ammount)){
+            echo json_encode(['response' => [
+                'state' => false,
+                'msg' => "preencha todos os campos"
+            ]]);
+            return;
+        }
+
+        if($this->request->ammount == '0'){
+            echo json_encode(['response' => [
+                'state' => false,
+                'msg' => "Quantidade de cupons inválida"
+            ]]);
+            return;
+        }
+
+        $ereference = "invoice-" . uniqid(rand(1111, 9999));
+
+        $product = new Product();
+        if(!$product->createChargeMoney([
+            $ereference,
+            udetail_by_uid($this->request->UserID)->UserName,
+            $this->request->ammount,
+            1,
+            'Administração',
+            00.00,
+            '10.1.0.4',
+            udetail_by_uid($this->request->UserID)->NickName
+        ])){
+            echo json_encode(['response' => [
+                'state' => true,
+                'msg' => "Erro ao criar recarga."
+            ]]);
+            return;
+        }
+
+        try {
+            $soap = new SoapClient($_ENV["Server_Wsdl"] . '?wsdl');
+            $soap->ChargeMoney([
+                "userID" => (int) $this->request->UserID,
+                "chargeID" => (string) $ereference,
+                "zoneId" => 1001
+
+            ]);
+        } catch (\Throwable $th) {
+        }
+        
+        echo json_encode(['response' => [
+            'state' => true,
+            'msg' => "Recarga enviada ao jogador [{$this->udetail->NickName}]"
+        ]]);
+        return;
+    }
+
     public function item_data($data): void
     {
         $query = $data['TemplateID'];
-        //movie_title LIKE CONCAT('%', :title, '%') OR slug LIKE CONCAT('%', :slug, '%')
         if (!$item = (new Itens)->find("TemplateID LIKE CONCAT('%', :id, '%') OR Name LIKE CONCAT('%', :name, '%') ", "id=$query&name=$query")->fetch()) {
             echo json_encode(['message' => "item não encontrado"]);
             return;

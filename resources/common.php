@@ -368,3 +368,26 @@ function hoursandmins($time, $format = '%02d:%02d')
     $minutes = ($time % 60);
     return sprintf($format, $hours, $minutes);
 }
+
+/**
+ * @return string
+ */
+function csrf_input(): string
+{
+    $session = new \App\Utils\Session();
+    $session->csrf();
+    return "<input type='hidden' name='csrf' value='" . ($session->csrf_token ?? "") . "'/>";
+}
+
+/**
+ * @param $request
+ * @return bool
+ */
+function csrf_verify($request): bool
+{
+    $session = new \App\Utils\Session();
+    if (empty($session->csrf_token) || empty($request['csrf']) || $request['csrf'] != $session->csrf_token) {
+        return false;
+    }
+    return true;
+}

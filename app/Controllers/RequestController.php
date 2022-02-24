@@ -188,8 +188,6 @@ class RequestController extends BaseController
 
     public function signup(?array $request): void
     {
-        $request = filter_var_array($request, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-
         foreach($request as $data)
         {
             if(preg_match('/[\x00-\x1F\x80-\xFF]/', $data))
@@ -200,6 +198,14 @@ class RequestController extends BaseController
                 ]);
                 return;
             }
+        }
+
+        if (!csrf_verify($request)){
+            echo $this->response('response', [
+                'state' => false,
+                'msg' => 'Por favor utilize o formulario para se registrar.',
+            ]);
+            return;
         }
 
         if (in_array("", $request)) {
@@ -237,8 +243,6 @@ class RequestController extends BaseController
             ]);
             return;
         }
-
-
 
         if (strlen($request->nickname) < 4 || strlen($request->nickname) > 16) {
             echo $this->response('response', [
@@ -363,6 +367,12 @@ class RequestController extends BaseController
 
         if (in_array("", $request)) {
             $_SESSION['flash'] = "Você precisa preencher todos os campos.";
+            header('Location :' .  $this->router->route('web.simple_auth'));
+            return;
+        }
+
+        if (!csrf_verify($request)){
+            $_SESSION['flash'] = "Por favor utilize o formulario para se registrar.";
             header('Location :' .  $this->router->route('web.simple_auth'));
             return;
         }

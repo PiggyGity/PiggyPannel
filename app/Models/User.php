@@ -82,7 +82,7 @@ class User extends DataLayer
         if (!$this->create_person((object)[
             'uname' => $u_hash,
             'passwd' => strtoupper($p_hash),
-            'nick' => $data->nickname,
+            'nick' => strip_tags($data->nickname),
             'mail' => $data->email,
             'sex' => $data->needsex,
         ])) {

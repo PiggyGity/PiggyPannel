@@ -617,6 +617,7 @@
             </div>
             <div class="modal-body scroll-y pt-0 pb-15">
                <form class="form" novalidate="novalidate" id="createAccount" action="<?= $r->route('api.account.signup') ?>" method="POST">
+                  
                   <div class="text-center mb-10">
                      <h1 class="text-dark mb-3">Criar conta</h1>
                   </div>
@@ -636,6 +637,7 @@
                   </div>
                   <div class="row">
                      <div class="fv-row mb-10 col-lg-6">
+                        <?= csrf_input(); ?>
                         <label class="form-label fs-6 fw-bolder text-dark">Sexo</label>
                         <select class="form-select form-select-solid form-select-lg" name="needsex" data-control="select2" data-hide-search="true">
                            <option value="1" selected="selected">Homem</option>

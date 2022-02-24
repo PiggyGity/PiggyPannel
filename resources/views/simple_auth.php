@@ -114,6 +114,7 @@
 							</div>
 							<div class="row">
 								<div class="fv-row mb-10 col-lg-6">
+									<?= csrf_input(); ?>
 									<label class="form-label fs-6 fw-bolder text-dark">Sexo</label>
 									<select class="form-select form-select-solid form-select-lg" name="needsex" data-control="select2" data-hide-search="true">
 										<option value="1" selected="selected">Homem</option>

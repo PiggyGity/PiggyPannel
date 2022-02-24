@@ -54,7 +54,7 @@
                                  <a class="menu-link nav-link py-3 px-4 px-xxl-6" href="#team" data-kt-scroll-toggle="true" data-kt-drawer-dismiss="true">Equipe</a>
                               </div>
                               <div class="menu-item">
-                                 <a class="menu-link nav-link py-3 px-4 px-xxl-6" href="<?= $r->route('web.simple_auth');?>">Lobby</a> 
+                                 <a class="menu-link nav-link py-3 px-4 px-xxl-6" href="<?= $r->route('web.simple_auth'); ?>">Lobby</a>
                               </div>
                            </div>
                         </div>
@@ -442,7 +442,7 @@
                      <br />DDtank privado na versão 4.1
                   </h1>
                   <div class="d-flex flex-center">
-                     <a href="<?= base_url('laucher.exe')?>" class="download-client-btn"></a>
+                     <a href="<?= base_url('laucher.exe') ?>" class="download-client-btn"></a>
                      <a href="<?= isset($_SESSION['uid']) ? base_url('lobby') : 'javascript:;' ?>" <?= isset($_SESSION['uid']) ? "" : 'data-bs-toggle="modal" data-bs-target="#modal_login_app"' ?> class="playgame-btn"></a>
                   </div>
                </div>
@@ -467,7 +467,7 @@
                   <div class="text-center">
                      <div class="octagon mx-auto mb-5 d-flex w-200px h-200px bgi-no-repeat bgi-size-contain bgi-position-center" style="background-image:url('https://cdn.discordapp.com/attachments/879520978265329745/892212656004542484/belle.png')"></div>
                      <div class="mb-0">
-                        <a href="javascript:;"_blank" class="text-dark fw-bolder text-hover-primary fs-3">Leticia</a>
+                        <a href="javascript:;" _blank" class="text-dark fw-bolder text-hover-primary fs-3">Leticia</a>
                         <div class="text-muted fs-6 fw-bold mt-1">Camgirl & Vende packs no onlyfans</div>
                      </div>
                   </div>
@@ -510,9 +510,9 @@
          </div>
       </div>
       <div class="mb-0">
-         
+
          <div class="landing-dark-bg">
-            
+
             <div class="container">
                <div class="d-flex flex-column flex-md-row flex-stack py-7 py-lg-10">
                   <div class="d-flex align-items-center order-2 order-md-1">
@@ -587,7 +587,8 @@
                      </button>
                      <a href="javascript:;" class="btn btn-lg btn-primary w-100 mb-5" data-bs-toggle="modal" data-bs-target="#modal_register_app">
                         <span class="indicator-label">Criar conta</span>
-                     </a> <!-- 
+                     </a>
+                     <!-- 
                      <div class="text-center text-muted text-uppercase fw-bolder mb-5">ou</div>
                     
                      <a href="<?= $r->route('auth.social.discord') ?>" class="btn btn-flex flex-center btn-light btn-lg w-100 mb-5">
@@ -617,7 +618,7 @@
             </div>
             <div class="modal-body scroll-y pt-0 pb-15">
                <form class="form" novalidate="novalidate" id="createAccount" action="<?= $r->route('api.account.signup') ?>" method="POST">
-                  
+
                   <div class="text-center mb-10">
                      <h1 class="text-dark mb-3">Criar conta</h1>
                   </div>
@@ -696,29 +697,29 @@
       </div>
    </div>
    </div>
-   <?php if(!isset($_SESSION['uid'])): ?>
-   <div class="modal show" id="newsModal" tabindex="-1" aria-hidden="true">
-      <div class="modal-dialog modal-dialog-centered mw-900px">
-         <div class="modal-content">
-            <div class="modal-header">
-               <h2>Pré registro</h2>
-               <div class="btn btn-sm btn-icon btn-active-color-primary" data-bs-dismiss="modal">
-                  <span class="svg-icon svg-icon-1">
-                     <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
-                        <g transform="translate(12.000000, 12.000000) rotate(-45.000000) translate(-12.000000, -12.000000) translate(4.000000, 4.000000)" fill="#000000">
-                           <rect fill="#000000" x="0" y="7" width="16" height="2" rx="1" />
-                           <rect fill="#000000" opacity="0.5" transform="translate(8.000000, 8.000000) rotate(-270.000000) translate(-8.000000, -8.000000)" x="0" y="7" width="16" height="2" rx="1" />
-                        </g>
-                     </svg>
-                  </span>
+   <?php if (!isset($_SESSION['uid'])) : ?>
+      <div class="modal show" id="newsModal" tabindex="-1" aria-hidden="true">
+         <div class="modal-dialog modal-dialog-centered mw-900px">
+            <div class="modal-content">
+               <div class="modal-header">
+                  <h2>Navegador Recomendado</h2>
+                  <div class="btn btn-sm btn-icon btn-active-color-primary" data-bs-dismiss="modal">
+                     <span class="svg-icon svg-icon-1">
+                        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
+                           <g transform="translate(12.000000, 12.000000) rotate(-45.000000) translate(-12.000000, -12.000000) translate(4.000000, 4.000000)" fill="#000000">
+                              <rect fill="#000000" x="0" y="7" width="16" height="2" rx="1" />
+                              <rect fill="#000000" opacity="0.5" transform="translate(8.000000, 8.000000) rotate(-270.000000) translate(-8.000000, -8.000000)" x="0" y="7" width="16" height="2" rx="1" />
+                           </g>
+                        </svg>
+                     </span>
+                  </div>
                </div>
-            </div>
-            <div class="modal-body" style="padding:0!important;">
-              <img src="https://cdn.discordapp.com/attachments/917063691164319745/942901481651204126/273982768_5588328754527494_2334032082882171548_n.png" style="width: 100%;border-bottom-left-radius: 8px;border-bottom-right-radius: 8px;" alt="">
+               <div class="modal-body" style="padding:0!important;">
+                  <img onclick="window.location.href='https://static.centbrowser.com/win_stable/4.3.9.248/centbrowser_4.3.9.248.exe'" src="https://orangetank.com.br/assets/media/backgrounds/91d78e50-3db2-4d67-9bfe-037c2c0d2571.jpg" style="cursor:pointer;width: 100%;border-bottom-left-radius: 8px;border-bottom-right-radius: 8px;" alt="">
+               </div>
             </div>
          </div>
       </div>
-   </div>
    <?php endif; ?>
    <script src="<?= base_url() ?>/assets/plugins/global/plugins.bundle.js"></script>
    <script src="<?= base_url() ?>/assets/js/scripts.bundle.js"></script>
@@ -726,19 +727,19 @@
    <script src="<?= base_url() ?>/assets/plugins/custom/typedjs/typedjs.bundle.js"></script>
    <script src="<?= base_url() ?>/assets/js/custom/landing.js"></script>
    <script>
-
       <?php
-        if (isset($_GET['act']) && $_GET['act'] == 'register') {
-            echo "document.querySelector('#register_button_modal').click();";
-        }
-        ?>
+      if (isset($_GET['act']) && $_GET['act'] == 'register') {
+         echo "document.querySelector('#register_button_modal').click();";
+      }
+      ?>
       <?php if (isset($_SESSION['uid'])) : ?>
-         function checkState(){
-            $.get("<?= $r->route('web.check.state') ?>", function( ) {});
+
+         function checkState() {
+            $.get("<?= $r->route('web.check.state') ?>", function() {});
          }
-         setInterval(checkState,5000)
+         setInterval(checkState, 5000)
       <?php endif; ?>
-      
+
       // Stepper lement
       var element = document.querySelector("#modal_create_person_stepper");
 
@@ -892,12 +893,12 @@
          });
       });
    </script>
-    <?php if(!isset($_SESSION['uid'])): ?>
-   <script type="text/javascript">
-      $(window).on('load', function() {
-         $('#newsModal').modal('show');
-      });
-   </script>
+   <?php if (!isset($_SESSION['uid'])) : ?>
+      <script type="text/javascript">
+         $(window).on('load', function() {
+            $('#newsModal').modal('show');
+         });
+      </script>
    <?php endif; ?>
    <noscript>
       <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-5FS8GGP" height="0" width="0" style="display:none;visibility:hidden"></iframe>

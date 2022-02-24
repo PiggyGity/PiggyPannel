@@ -103,7 +103,7 @@ class User extends DataLayer
             return false;
         }
 
-        if ($this->connection->exec("exec {$_ENV["Game_User"]}.dbo.SP_Users_Active @UserID='',@Attack=0,@Colors=N',,,,,,',@ConsortiaID=0,@Defence=0,@Gold=1000,@GP=25899,@Grade=10,@Luck=0,@Money=500,@Style=N',,,,,,',@Agility=0,@State=0,@UserName=$data->uname,@PassWord=N'$data->passwd',@Sex=$data->sex,@Hide=1111111111,@ActiveIP=N'',@Skin=N'',@Site=N''") !== 1) {
+        if ($this->connection->exec("exec {$_ENV["Game_User"]}.dbo.SP_Users_Active @UserID='',@Attack=0,@Colors=N',,,,,,',@ConsortiaID=0,@Defence=0,@Gold=1000,@GP=0,@Grade=1,@Luck=0,@Money=500,@Style=N',,,,,,',@Agility=0,@State=0,@UserName=$data->uname,@PassWord=N'$data->passwd',@Sex=$data->sex,@Hide=1111111111,@ActiveIP=N'',@Skin=N'',@Site=N''") !== 1) {
             return false;
         }
 

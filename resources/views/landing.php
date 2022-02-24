@@ -572,6 +572,7 @@
                      <label class="form-label fs-6 fw-bolder text-dark">Email</label>
                      <input class="form-control form-control-lg form-control-solid" type="text" name="email" autocomplete="off" />
                   </div>
+                  
                   <div class="fv-row mb-10">
                      <div class="d-flex flex-stack mb-2">
                         <label class="form-label fw-bolder text-dark fs-6 mb-0">Senha</label>
@@ -579,6 +580,7 @@
                      </div>
                      <input class="form-control form-control-lg form-control-solid" type="password" name="passwd" autocomplete="off" />
                   </div>
+                  <div class="g-recaptcha" data-sitekey="<?= $_ENV['CAPTCHA_KEY'] ?>"></div>
                   <div class="text-center">
                      <button type="submit" id="form_signin_account" class="btn btn-lg btn-primary w-100 mb-5">
                         <span class="indicator-label">Fazer login</span>
@@ -637,7 +639,7 @@
                   </div>
                   <div class="row">
                      <div class="fv-row mb-10 col-lg-6">
-                        <?= csrf_input(); ?>
+                       
                         <label class="form-label fs-6 fw-bolder text-dark">Sexo</label>
                         <select class="form-select form-select-solid form-select-lg" name="needsex" data-control="select2" data-hide-search="true">
                            <option value="1" selected="selected">Homem</option>
@@ -683,6 +685,7 @@
                         </div>
                      </div>
                   </div>
+                  <div class="g-recaptcha" data-sitekey="<?= $_ENV['CAPTCHA_KEY'] ?>"></div>
                   <div class="text-center">
                      <button type="submit" id="form_create_account" class="btn btn-lg btn-primary w-100 mb-5">
                         <span class="indicator-label">Finalizar registro</span>
@@ -755,6 +758,7 @@
          stepper.goPrevious(); // go previous step
       });
    </script>
+   <script src="https://www.google.com/recaptcha/api.js" async defer></script>
    <script>
       //Login Script
       $("form#signinAccount").submit(function(e) {

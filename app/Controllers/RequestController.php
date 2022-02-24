@@ -140,6 +140,15 @@ class RequestController extends BaseController
             return;
         }
 
+        //check recaptcha token
+        if (!$this->verifyCaptcha($request['g-recaptcha-response'])) {
+            echo $this->response('response', [
+                'state' => false,
+                'msg' => 'Captcha inválido, atualize a página e tente novamente.',
+            ]);
+            return;
+        }
+
         $request = (object) $request;
 
         if (!filter_var($request->email, FILTER_VALIDATE_EMAIL)) {
@@ -188,6 +197,14 @@ class RequestController extends BaseController
 
     public function signup(?array $request): void
     {
+        if($_ENV['register'] == 'false'){
+            echo $this->response('response', [
+                'state' => false,
+                'msg' => 'Registro desabilitado, voltaremos em breve.',
+            ]);
+            return;
+        }
+
         foreach($request as $data)
         {
             if(preg_match('/[\x00-\x1F\x80-\xFF]/', $data))
@@ -200,10 +217,11 @@ class RequestController extends BaseController
             }
         }
 
-        if (!csrf_verify($request)){
+        //check recaptcha token
+        if (!$this->verifyCaptcha($request['g-recaptcha-response'])) {
             echo $this->response('response', [
                 'state' => false,
-                'msg' => 'Por favor utilize o formulario para se registrar.',
+                'msg' => 'Captcha inválido, atualize a página e tente novamente.',
             ]);
             return;
         }
@@ -315,13 +333,19 @@ class RequestController extends BaseController
         }
     }
 
-
     public function simple_signin(?array $request)
     {
         $request = filter_var_array($request, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
 
         if (in_array("", $request)) {
             $_SESSION['flash'] = "Você precisa preencher todos os campos.";
+            header('Location :' .  $this->router->route('web.simple_auth'));
+            return;
+        }
+
+        //check recaptcha token
+        if (!$this->verifyCaptcha($request['g-recaptcha-response'])) {
+            $_SESSION['flash'] = "Captcha inválido, atualize a página e tente novamente";
             header('Location :' .  $this->router->route('web.simple_auth'));
             return;
         }
@@ -363,6 +387,12 @@ class RequestController extends BaseController
 
     public function simple_signup(?array $request): void
     {
+        if($_ENV['register'] == 'false'){
+            $_SESSION['flash'] = "Registro desabilitado, voltaremos em breve.";
+            header('Location :' .  $this->router->route('web.simple_auth'));
+            return;
+        }
+
         $request = filter_var_array($request, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
 
         if (in_array("", $request)) {
@@ -371,8 +401,9 @@ class RequestController extends BaseController
             return;
         }
 
-        if (!csrf_verify($request)){
-            $_SESSION['flash'] = "Por favor utilize o formulario para se registrar.";
+        //check recaptcha token
+        if (!$this->verifyCaptcha($request['g-recaptcha-response'])) {
+            $_SESSION['flash'] = "Captcha inválido, atualize a página e tente novamente";
             header('Location :' .  $this->router->route('web.simple_auth'));
             return;
         }
@@ -428,6 +459,43 @@ class RequestController extends BaseController
             $this->router->redirect('web.lobby');
             return;
         }
+    }
+
+    /**
+     * Check if token ReCAPTCHA is valid
+     *
+     * @param string $token
+     * @return bool
+     */
+    public function verifyCaptcha($token)
+    {
+        //start curl
+        $curl = curl_init();
+
+        //define curl request params
+        curl_setopt_array($curl, [
+            CURLOPT_URL => 'https://www.google.com/recaptcha/api/siteverify',
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_SSL_VERIFYHOST => false,
+            CURLOPT_SSL_VERIFYPEER => false,
+            CURLOPT_CUSTOMREQUEST => 'POST',
+            CURLOPT_POSTFIELDS => [
+                'secret' => $_ENV['CAPTCHA_SECRET_KEY'],
+                'response' => $token ?? ''
+            ]
+        ]);
+
+        //curl execute
+        $response = curl_exec($curl);
+
+        //close curl connection
+        curl_close($curl);
+
+        //response from curl
+        $responseArray = json_decode($response, true);
+
+        //return response
+        return $responseArray['success'] ?? false;
     }
 
     public function config()
